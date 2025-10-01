@@ -1,3 +1,9 @@
+import RecipeList from "../../components/recipeList/RecipeList"
+
 export default function Home() {
-  return <div>Home</div>
+  return (
+    <div>
+      <RecipeList />
+    </div>
+  )
 }
