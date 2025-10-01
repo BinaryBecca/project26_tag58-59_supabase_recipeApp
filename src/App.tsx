@@ -3,6 +3,7 @@ import Layout from "./layout/Layout"
 import Home from "./pages/home/Home"
 import About from "./pages/about/About"
 import Recipes from "./pages/recipes/Recipes"
+import Login from "./pages/login/Login"
 
 function App() {
   const router = createBrowserRouter(
@@ -11,6 +12,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="recipes" element={<Recipes />} />
         <Route path="about" element={<About />} />
+        <Route path="login" element={<Login />} />
       </Route>
     )
   )
