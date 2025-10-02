@@ -7,6 +7,9 @@
 
 @theme {
   --font-inter: Inter, sans-serif;
+  --color-pastelpink: #ffb6d5;
+  --color-pastelyellow: #ffe69a;
+  --color-pastelblue: #a7e3f0;
 }
 
 :root {

@@ -4,8 +4,8 @@ export default function Nav() {
   return (
     <nav className="flex flex-row justify-between align-items py-5 px-10">
       <div className="flex flex-row  align-items gap-2">
-        <img className="h-6" src="/img/logo.png" alt="coffee cup" />
-        <p>Die Rezeptwelt</p>
+        <img className="h-6" src="/img/logo.png" alt="cupcake" />
+        <p>Cupcake World</p>
       </div>
 
       <div className="flex flex-row gap-5 text-l font-bold">

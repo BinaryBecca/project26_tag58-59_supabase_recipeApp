@@ -8,4 +8,5 @@ export interface IRecipe {
   instructions: string
   category_id: number
   categories: ICategory[]
+  image_url?: string
 }

@@ -4,6 +4,7 @@ import Home from "./pages/home/Home"
 import About from "./pages/about/About"
 import Recipes from "./pages/recipes/Recipes"
 import Login from "./pages/login/Login"
+import Details from "./pages/details/Details"
 
 function App() {
   const router = createBrowserRouter(
@@ -13,6 +14,7 @@ function App() {
         <Route path="recipes" element={<Recipes />} />
         <Route path="about" element={<About />} />
         <Route path="login" element={<Login />} />
+        <Route path="details/:id" element={<Details />} />
       </Route>
     )
   )
