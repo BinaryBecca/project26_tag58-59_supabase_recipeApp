@@ -6,14 +6,14 @@ import { useNavigate } from "react-router"
 // dark/light_mode
 
 interface ButtonProps {
-  navigateTo: string | number
+  navigateTo?: string | number
   className?: string
   imgSrc: string
   imgHoverSrc?: string
   imgDarkSrc?: string
   imgAlt: string
   imgClassName: string
-  darkMode: boolean
+  darkMode?: boolean
 }
 
 export default function Button({
@@ -73,7 +73,7 @@ export default function Button({
     //   <img className="rotate-180" src="/img/arrow-hover.png" alt="arrow left" />
 
     //   {/* dark/light_mode */}
-    //   <img className="rotate-180" src="/img/dark_mode.png" alt="cupcake" />
-    //   <img className="rotate-180" src="/img/light_mode.png" alt="cupcake" />
+    //   <img src="/img/dark_mode.png" alt="cupcake" />
+    //   <img src="/img/light_mode.png" alt="cupcake" />
   )
 }

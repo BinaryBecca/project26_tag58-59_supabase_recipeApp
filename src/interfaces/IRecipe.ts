@@ -1,7 +1,7 @@
 import type { ICategory } from "./ICategory"
 
 export interface IRecipe {
-  id: number
+  id: string
   name: string
   description: string
   servings: number
