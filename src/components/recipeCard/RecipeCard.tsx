@@ -23,7 +23,7 @@ export default function RecipeCard() {
               {/* <p className="absolute top-30 left-30 text-black/80 text-4xl z-20 text-center">NO IMAGE FOUND</p> */}
             </div>
 
-            <div className="flex flex-col justify-start items-center py-10 px-4 border border-gray-300 p-3">
+            <div className="flex flex-col justify-start items-center py-10 px-4 border border-gray-300 p-3 bg-white">
               <h2 className="font-bold text-2xl">{recipe.name}</h2>
               <p className="text-xl py-5 text-center">{recipe.description}</p>
             </div>

@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div>
       <Header />
-      <main>
+      <main className="bg-pastelyellow/20">
         <Outlet />
       </main>
       <Footer />
