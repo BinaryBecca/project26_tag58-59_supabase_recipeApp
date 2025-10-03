@@ -3,10 +3,22 @@
   src: url("/fonts/Inter_24pt-Regular.ttf");
 }
 
+@font-face {
+  font-family: Bakery;
+  src: url("/fonts/Bakery.otf");
+}
+
+@font-face {
+  font-family: Quicksand;
+  src: url("/fonts/Quicksand-Regular.ttf");
+}
+
 @import "tailwindcss";
 
 @theme {
   --font-inter: Inter, sans-serif;
+  --font-bakery: Bakery, sans-serif;
+  --font-quicksand: Quicksand, sans-serif;
   --color-pastelpink: #ffb6d5;
   --color-pastelyellow: #ffe69a;
   --color-pastelblue: #a7e3f0;

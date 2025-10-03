@@ -24,15 +24,17 @@ export default function RecipeCard() {
               {/* <p className="absolute top-30 left-30 text-black/80 text-4xl z-20 text-center">NO IMAGE FOUND</p> */}
             </div>
 
-            <div className="flex flex-col justify-between items-center py-10 px-4 border border-gray-300 p-3 bg-white">
-              <h2 className="font-bold text-2xl">{recipe.name}</h2>
-              <p className="text-xl text-center">{recipe.description}</p>
+            <div className="relative flex flex-col justify-between items-center py-10 px-4 border border-gray-300 p-3 bg-white">
+              <div className="absolute bg-pastelyellow/5 inset-0 w-full h-full z-0"></div>
+
+              <h2 className="font-bold text-2xl z-10">{recipe.name}</h2>
+              <p className="text-xl text-center z-10">{recipe.description}</p>
               {/*        
     //   <img src="/img/detail-button.png" alt="cupcake" />
     //   <img src="/img/detail-button-hover.png" alt="cupcake" /> */}
               <Button
                 navigateTo={`details/${recipe.id}`}
-                className="h-10 w-10"
+                className="h-10 w-10 z-10"
                 imgSrc="/img/detail-button.png"
                 imgHoverSrc="/img/detail-button-hover.png"
                 imgAlt="cupcake"
