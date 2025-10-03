@@ -21,7 +21,7 @@ export async function getIngredients(): Promise<IIngredient[]> {
   if (error) {
     console.error(error)
   }
-  console.log("ingredients", ingredients)
+  // console.log("ingredients", ingredients)
   return ingredients as unknown as IIngredient[]
 }
 
@@ -30,6 +30,6 @@ export async function getCategories(): Promise<ICategory[]> {
   if (error) {
     console.error(error)
   }
-  console.log("categories", categories)
+  // console.log("categories", categories)
   return categories as unknown as ICategory[]
 }

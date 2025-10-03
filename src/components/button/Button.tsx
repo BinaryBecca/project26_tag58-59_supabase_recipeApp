@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router"
+import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider.tsx"
 
 // detailPage
 // back/forward
@@ -26,13 +27,15 @@ export default function Button({
   imgClassName,
   darkMode,
 }: ButtonProps) {
+  const { isDarkMode, activatingDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
+
   const navigate = useNavigate()
   const [isHOvered, setisHovered] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  // const [isDarkMode, setIsDarkMode] = useState(false)
 
   const handleOnClick = () => {
     if (darkMode) {
-      setIsDarkMode(!isDarkMode)
+      activatingDarkMode()
     } else if (typeof navigateTo === "string") {
       navigate(navigateTo)
     } else if (typeof navigateTo === "number") {

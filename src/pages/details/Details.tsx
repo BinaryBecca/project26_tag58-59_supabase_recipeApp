@@ -7,37 +7,31 @@ import type { ICategory } from "../../interfaces/ICategory"
 
 export default function Details() {
   const { id } = useParams()
-  console.log("id", id)
+  // console.log("id", id)
 
-  const { recipes, ingredients, categories } = useContext(mainContext) as mainContextProps
-  console.log(
-    "All ingredients:",
-    ingredients.map((i) => i.recipe_id)
-  )
-  const showingRecipe = recipes.find((recipe: IRecipe) => recipe.id === id)
-  const showingIngredient = ingredients.filter(
-    (ingredient: IIngredient) => console.log("Vergleich:", ingredient.recipe_id === id, ingredient.recipe_id, id)
-    //  ingredient.recipe_id.trim() === id?.trim()
-  )
+  const { recipes, ingredients } = useContext(mainContext) as mainContextProps
+  const showingRecipe = recipes.find((recipe: IRecipe) => {
+    // console.log("Comparing recipe_id and id:", `${recipe.id}`, `${id}`, recipe.id === id)
+    return recipe.id === id
+  })
 
-  console.log("All ingredients:", ingredients)
-  console.log("Filtered ingredients:", showingIngredient)
+  const showingIngredient = ingredients.filter((ingredient: IIngredient) => {
+    // console.log("Comparing recipe_id and id:", `${ingredient.recipe_id}`, `${id}`, ingredient.recipe_id === id)
+    return ingredient.recipe_id === id
+  })
+
   // const showingCategory = categories.filter((category: ICategory) => category.id === id)
 
   if (!id) {
     return <p>ID fehlt in der URL.</p>
   }
-  console.log("Alle Zutaten:", ingredients.length)
 
   if (showingRecipe === undefined) {
     return <p className="text-center text-2xl py-10">Rezept wurd nicht gefunden.</p>
   }
 
-  if (!showingIngredient.length) {
-    return <p className="text-center text-2xl py-10">Zutaten werden geladen...</p>
-  }
-  if (showingIngredient.length === 0) {
-    return <p className="text-center text-2xl py-10">Zutaten wurden nicht gefunden.</p>
+  if (showingIngredient === undefined) {
+    return <p className="text-center text-2xl py-10">Zutaten wurd nicht gefunden.</p>
   }
 
   // if (showingCategory === undefined) {

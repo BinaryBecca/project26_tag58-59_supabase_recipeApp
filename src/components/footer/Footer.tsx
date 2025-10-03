@@ -1,6 +1,14 @@
+import { useContext } from "react"
+import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
+
 export default function Footer() {
+  const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
+
   return (
-    <footer className="flex flex-row justify-between items-center py-10 px-20 bg-pastelblue/20 font-quicksand text-xl">
+    <footer
+      className={`flex flex-row justify-between items-center py-10 px-20 font-quicksand text-xl ${
+        isDarkMode ? "bg-pastelblue/20" : "bg-pastelblue"
+      }`}>
       <div className="flex flex-col gap-5">
         <p>Social Media</p>
         <div className="flex flex-row gap-5">

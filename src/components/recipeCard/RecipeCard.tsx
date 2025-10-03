@@ -1,9 +1,11 @@
 import { useContext } from "react"
+import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
 import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import type { IRecipe } from "../../interfaces/IRecipe"
 import Button from "../button/Button"
 
 export default function RecipeCard() {
+  const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const { recipes } = useContext(mainContext) as mainContextProps
 
   return (
@@ -25,7 +27,10 @@ export default function RecipeCard() {
             </div>
 
             <div className="relative flex flex-col justify-between items-center py-10 px-4 border border-gray-300 p-3 bg-white">
-              <div className="absolute bg-pastelyellow/5 inset-0 w-full h-full z-0"></div>
+              <div
+                className={`absolute inset-0 w-full h-full z-0 ${
+                  isDarkMode ? "bg-pastelyellow/5" : "bg-pastelyellow"
+                }`}></div>
 
               <h2 className="font-bold text-2xl z-10">{recipe.name}</h2>
               <p className="text-xl text-center z-10">{recipe.description}</p>
@@ -34,9 +39,9 @@ export default function RecipeCard() {
     //   <img src="/img/detail-button-hover.png" alt="cupcake" /> */}
               <Button
                 navigateTo={`details/${recipe.id}`}
-                className="h-10 w-10 z-10"
-                imgSrc="/img/detail-button.png"
-                imgHoverSrc="/img/detail-button-hover.png"
+                className="h-10 w-10 z-10 hover:h-11 hover:w-11"
+                imgSrc={isDarkMode ? "/img/detail-button.png" : "/img/detail-button-hover.png"}
+                imgHoverSrc={isDarkMode ? "/img/detail-button-hover.png" : "/img/detail-button.png"}
                 imgAlt="cupcake"
                 imgClassName="h-10 w-10 object-contain cursor-pointer hover:h-12 hover:w-12"
               />

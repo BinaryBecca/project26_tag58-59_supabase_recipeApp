@@ -1,12 +1,15 @@
 import { useLocation } from "react-router"
 import Nav from "../nav/Nav"
+import { useContext } from "react"
+import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
 
 export default function Header() {
+  const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const location = useLocation()
   const detailPage = location.pathname.startsWith("/details")
 
   return (
-    <header className="bg-pastelblue/20 font-quicksand text-xl">
+    <header className={`font-quicksand text-xl ${isDarkMode ? "bg-pastelblue/20" : "bg-pastelblue"}`}>
       <Nav />
 
       {!detailPage && (
