@@ -46,8 +46,8 @@ export default function Button({
   }
 
   const funcDifferentImgSrc = () => {
-    if (darkMode) {
-      return isDarkMode ? imgDarkSrc : imgSrc
+    if (isDarkMode) {
+      return imgDarkSrc
     }
     if (isHOvered) {
       return imgHoverSrc

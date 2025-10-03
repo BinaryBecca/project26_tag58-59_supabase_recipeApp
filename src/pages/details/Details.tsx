@@ -108,21 +108,21 @@ export default function Details() {
         <div className="flex items-center justify-between">
           <Button
             navigateTo={-1}
-            className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11"
-            imgSrc="/img/arrow.png"
+            className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
+            imgSrc="/img/arrow-dark.png"
             imgHoverSrc="/img/arrow.png"
-            imgDarkSrc="/img/arrow-dark.png"
+            imgDarkSrc="/img/arrow.png"
             imgAlt="arrow right"
-            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11"
+            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
           />
           <Button
             navigateTo={1}
-            className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11"
-            imgSrc="/img/arrow.png"
+            className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
+            imgSrc="/img/arrow-dark.png"
             imgHoverSrc="/img/arrow.png"
-            imgDarkSrc="/img/arrow-dark.png"
+            imgDarkSrc="/img/arrow.png"
             imgAlt="arrow right"
-            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11"
+            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
           />
         </div>
       </div>

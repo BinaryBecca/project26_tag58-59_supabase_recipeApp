@@ -20,6 +20,7 @@ export default function Nav() {
         <Button
           className="h-8 w-8 hover:h-10 hover:w-10 cursor-pointer"
           imgSrc="/img/light_mode.png"
+          imgHoverSrc="/img/light_mode.png"
           imgDarkSrc="/img/dark_mode.png"
           imgAlt="cupcake"
           imgClassName="h-8 w-8 object-contain hover:h-10 hover:w-10"
