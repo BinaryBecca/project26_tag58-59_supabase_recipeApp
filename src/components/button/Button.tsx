@@ -36,7 +36,9 @@ export default function Button({
   const handleOnClick = () => {
     if (darkMode) {
       activatingDarkMode()
-    } else if (typeof navigateTo === "string") {
+    }
+
+    if (typeof navigateTo === "string") {
       navigate(navigateTo)
     } else if (typeof navigateTo === "number") {
       navigate(navigateTo)

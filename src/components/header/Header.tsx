@@ -13,7 +13,7 @@ export default function Header() {
       <Nav />
 
       {!detailPage && (
-        <div className="relative bg-[url('/img/hero-img.png')] bg-cover bg-center h-1/2 w-full px-20 py-25">
+        <div className="bg-[url('/img/hero-img.png')] relative bg-cover bg-center w-full px-20 py-30">
           <p className="relative text-white/90 text-5xl z-20 text-center">
             Entdecke himmlische Cupcake-Rezepte – und teile deine eigenen Kreationen mit der Community.
           </p>

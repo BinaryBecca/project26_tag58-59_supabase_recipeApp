@@ -38,7 +38,7 @@ export default function RecipeCard() {
     //   <img src="/img/detail-button.png" alt="cupcake" />
     //   <img src="/img/detail-button-hover.png" alt="cupcake" /> */}
               <Button
-                navigateTo={`details/${recipe.id}`}
+                navigateTo={`/details/${recipe.id}`}
                 className="h-10 w-10 z-10 hover:h-11 hover:w-11"
                 imgSrc={isDarkMode ? "/img/detail-button.png" : "/img/detail-button-hover.png"}
                 imgHoverSrc={isDarkMode ? "/img/detail-button-hover.png" : "/img/detail-button.png"}

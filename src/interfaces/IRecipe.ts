@@ -6,7 +6,7 @@ export interface IRecipe {
   description: string
   servings: number
   instructions: string
-  category_id: number
+  category_id: string
   categories: ICategory[]
   image_url?: string
 }
