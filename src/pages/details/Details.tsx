@@ -114,9 +114,8 @@ export default function Details() {
             <Button
               navigateTo={`/details/${navigateToLastEntry.id}`}
               className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-              imgSrc="/img/arrow-dark.png"
+              imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
               imgHoverSrc="/img/arrow.png"
-              imgDarkSrc="/img/arrow.png"
               imgAlt="arrow right"
               imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
             />
@@ -125,9 +124,8 @@ export default function Details() {
             <Button
               navigateTo={`/details/${navigateToNextEntry.id}`}
               className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-              imgSrc="/img/arrow-dark.png"
+              imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
               imgHoverSrc="/img/arrow.png"
-              imgDarkSrc="/img/arrow.png"
               imgAlt="arrow right"
               imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
             />
