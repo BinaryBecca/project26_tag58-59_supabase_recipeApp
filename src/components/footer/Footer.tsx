@@ -20,7 +20,7 @@ export default function Footer() {
       </div>
       <div className="flex flex-row  align-items gap-2">
         <img className="h-8 w-8 object-contain" src="/img/logo.png" alt="cupcake" />
-        <p className="font-bakery text-2xl">Cupcake World</p>
+        <p className="font-bakery text-2xl">Cupcake Club</p>
       </div>
     </footer>
   )

@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 export interface DarkmodeProviderProps {
   isDarkMode: boolean
@@ -18,6 +18,8 @@ export default function DarkModeProvider({ children }: { children: React.ReactNo
       setIsDarkMode(true)
     }
   }
+  // # warum funktioniert mein lightmode beim ersten rendern nur, wenn darkMode true ist????
+  useEffect(() => setIsDarkMode(true), [])
 
   return <darkModeContext.Provider value={{ isDarkMode, activatingDarkMode }}>{children}</darkModeContext.Provider>
 }

@@ -6,7 +6,7 @@ export default function Nav() {
     <nav className="flex flex-row justify-between items-center py-8 px-10">
       <div className="flex flex-row  align-items gap-2">
         <img className="h-6 w-6 object-contain" src="/img/logo.png" alt="cupcake" />
-        <p className="font-bakery text-xl">Cupcake World</p>
+        <p className="font-bakery text-xl">Cupcake Club</p>
       </div>
 
       <div className="flex flex-row gap-10 text-l font-bold">

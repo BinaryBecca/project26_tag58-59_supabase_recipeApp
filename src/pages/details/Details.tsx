@@ -13,10 +13,18 @@ export default function Details() {
   // console.log("id", id)
 
   const { recipes, ingredients, categories } = useContext(mainContext) as mainContextProps
+
   const showingRecipe = recipes.find((recipe: IRecipe) => {
     // console.log(`${recipe.id}`, `${id}`, recipe.id === id)
+    // console.log(recipe.id)
     return recipe.id === id
   })
+
+  // # back-/forwards button function with findIndex
+  const currentIndex = recipes.findIndex((recipe: IRecipe) => recipe.id === id)
+  console.log("currentIndex", currentIndex)
+  const navigateToLastEntry = recipes[currentIndex - 1]
+  const navigateToNextEntry = recipes[currentIndex + 1]
 
   const showingIngredient = ingredients.filter((ingredient: IIngredient) => {
     // console.log(`${ingredient.recipe_id}`, `${id}`, ingredient.recipe_id === id)
@@ -27,10 +35,6 @@ export default function Details() {
     // console.log(`${category.id}`, `${showingRecipe?.category_id}`, category.id === showingRecipe?.category_id)
     return category.id === showingRecipe?.category_id
   })
-
-  if (!id) {
-    return <p>ID fehlt in der URL.</p>
-  }
 
   if (showingRecipe === undefined) {
     return <p className="text-center text-2xl py-10">Rezept wurd nicht gefunden.</p>
@@ -106,24 +110,28 @@ export default function Details() {
         </div>
 
         <div className="flex items-center justify-between">
-          <Button
-            navigateTo={-1}
-            className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-            imgSrc="/img/arrow-dark.png"
-            imgHoverSrc="/img/arrow.png"
-            imgDarkSrc="/img/arrow.png"
-            imgAlt="arrow right"
-            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
-          />
-          <Button
-            navigateTo={1}
-            className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-            imgSrc="/img/arrow-dark.png"
-            imgHoverSrc="/img/arrow.png"
-            imgDarkSrc="/img/arrow.png"
-            imgAlt="arrow right"
-            imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
-          />
+          {navigateToLastEntry && (
+            <Button
+              navigateTo={`/details/${navigateToLastEntry.id}`}
+              className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
+              imgSrc="/img/arrow-dark.png"
+              imgHoverSrc="/img/arrow.png"
+              imgDarkSrc="/img/arrow.png"
+              imgAlt="arrow right"
+              imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
+            />
+          )}
+          {navigateToNextEntry && (
+            <Button
+              navigateTo={`/details/${navigateToNextEntry.id}`}
+              className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
+              imgSrc="/img/arrow-dark.png"
+              imgHoverSrc="/img/arrow.png"
+              imgDarkSrc="/img/arrow.png"
+              imgAlt="arrow right"
+              imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
+            />
+          )}
         </div>
       </div>
     </section>
