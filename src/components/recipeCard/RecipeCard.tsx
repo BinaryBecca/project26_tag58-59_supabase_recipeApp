@@ -23,7 +23,6 @@ export default function RecipeCard() {
                   e.currentTarget.src = "/img/placeholder-img.png"
                 }}
               />
-              {/* <p className="absolute top-30 left-30 text-black/80 text-4xl z-20 text-center">NO IMAGE FOUND</p> */}
             </div>
 
             <div className="relative flex flex-col justify-between items-center py-10 px-4 border border-gray-300 p-3 bg-white">
@@ -35,13 +34,13 @@ export default function RecipeCard() {
               <h2 className="font-bold text-2xl z-10">{recipe.name}</h2>
               <p className="text-xl text-center z-10">{recipe.description}</p>
               {/*        
-    //   <img src="/img/detail-button.png" alt="cupcake" />
-    //   <img src="/img/detail-button-hover.png" alt="cupcake" /> */}
+    //   <img src="/img/detail-button_dark.png" alt="cupcake" />
+    //   <img src="/img/detail-button_light.png" alt="cupcake" /> */}
               <Button
                 navigateTo={`/details/${recipe.id}`}
-                className="h-10 w-10 z-10 hover:h-11 hover:w-11"
-                imgSrc={isDarkMode ? "/img/detail-button.png" : "/img/detail-button-hover.png"}
-                imgHoverSrc={isDarkMode ? "/img/detail-button-hover.png" : "/img/detail-button.png"}
+                className="h-10 w-10 z-20 hover:h-11 hover:w-11"
+                imgSrc={isDarkMode ? "/img/detail-button_light.png" : "/img/detail-button_dark.png"}
+                imgHoverSrc={isDarkMode ? "/img/detail-button_dark.png" : "/img/detail-button_light.png"}
                 imgAlt="cupcake"
                 imgClassName="h-10 w-10 object-contain cursor-pointer hover:h-12 hover:w-12"
               />

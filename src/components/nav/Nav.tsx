@@ -1,7 +1,17 @@
 import { Link } from "react-router"
+import { useContext } from "react"
+import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
 import Button from "../button/Button"
 
 export default function Nav() {
+  const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
+
+  // const handleOnClick = () => {
+  //   if (isDarkMode) {
+  //     activatingDarkMode()
+  //   }
+  // }
+
   return (
     <nav className="flex flex-row justify-between items-center py-8 px-10">
       <div className="flex flex-row  align-items gap-2">
@@ -19,13 +29,19 @@ export default function Nav() {
         <Link to="login">Login</Link>
         <Button
           className="h-8 w-8 hover:h-10 hover:w-10 cursor-pointer"
-          imgSrc="/img/light_mode.png"
-          imgHoverSrc="/img/light_mode.png"
-          imgDarkSrc="/img/dark_mode.png"
-          imgAlt="cupcake"
+          imgSrc={isDarkMode ? "/img/dark_mode.png" : "/img/light_mode.png"}
+          imgHoverSrc="/img/dark_mode.png"
+          imgAlt="darkmode/lightmode button"
           imgClassName="h-8 w-8 object-contain hover:h-10 hover:w-10"
           darkMode={true}
         />
+        {/* <button onClick={handleOnClick} className="h-8 w-8 hover:h-10 hover:w-10 cursor-pointer">
+          <img
+            className="h-8 w-8 object-contain hover:h-10 hover:w-10"
+            src={isDarkMode ? "/img/dark_mode.png" : "/img/light_mode.png"}
+            alt="darkmode/lightmode button"
+          />
+        </button> */}
       </div>
     </nav>
   )

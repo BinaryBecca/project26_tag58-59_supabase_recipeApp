@@ -18,6 +18,7 @@ export default function DarkModeProvider({ children }: { children: React.ReactNo
       setIsDarkMode(true)
     }
   }
+
   // # warum funktioniert mein lightmode beim ersten rendern nur, wenn darkMode true ist????
   useEffect(() => setIsDarkMode(true), [])
 
