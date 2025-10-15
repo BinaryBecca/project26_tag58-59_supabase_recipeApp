@@ -1,19 +1,13 @@
 import { useContext, useState } from "react"
-// import { mainContext } from "../../context/MainProvider"
-// import type { IUser } from "../../interfaces/IUser"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import supabase from "../../utils/supabase"
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
-
-// interface SignUpProps {
-//   user: IUser | null
-//   setUser: React.Dispatch<React.SetStateAction<IUser | null>>
-// }
+import FormButton from "../../components/formButton/FormButton"
 
 export default function SignUp() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
-  // const { user, setUser } = useContext(mainContext) as SignUpProps
+
   const navigate = useNavigate()
 
   const [firstname, setFirstname] = useState<string>("")
@@ -42,7 +36,7 @@ export default function SignUp() {
         console.error("Fehler beim SignUp", error)
       }
       console.log("SignUp war erfolgreich", data)
-      // direkt zum Profile
+      //! direkt zum Profile
       navigate("/profile")
     } catch (error) {
       console.error("Fehler beim SignUp", error)
@@ -52,8 +46,8 @@ export default function SignUp() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div
-        className={`border rounded-2xl p-5 ${
-          isDarkMode ? "bg-white/20 border-black/80" : "bg-pastelpink/40 border-white/80"
+        className={`border rounded-2xl py-5 px-10  ${
+          isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
         }`}>
         <h2
           className={`text-center font-quicksand font-bold text-3xl px-5 ${
@@ -98,6 +92,19 @@ export default function SignUp() {
             placeholder="••••••••"
             required={true}
           />
+
+          <FormButton text="Anmelden" />
+
+          <p className="text-center text-s text-gray-700">
+            Schon angemeldet?{" "}
+            <Link
+              to="/login"
+              className={`text-m ${
+                isDarkMode ? "text-pastelpink hover:text-pink-500" : "text-gray-400 hover:text-gray-50"
+              }`}>
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </div>
