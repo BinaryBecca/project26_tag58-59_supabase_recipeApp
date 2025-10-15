@@ -5,6 +5,7 @@ import supabase from "../../utils/supabase"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
+// import { useNavigate } from "react-router"
 
 interface ProfileProps {
   user: IUser
@@ -15,10 +16,14 @@ export default function Profile() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const { user, setUser } = useContext(mainContext) as ProfileProps
 
+  // const navigate = useNavigate()
+
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [newFirstname, setNewFirstname] = useState("")
   const [newLastname, setNewLastname] = useState("")
   const [newUsername, setNewUsername] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newPassword, setNewPassword] = useState("")
 
   const fetchData = async () => {
     const {
@@ -51,6 +56,21 @@ export default function Profile() {
         .eq("id", user.id)
       if (error) {
         console.error("Fehler beim Speichern", error)
+      } else {
+        fetchData()
+      }
+    }
+    // ! e-mail/password in auth.users gespeichert; Änderungen über supabase.auth.updateUser
+    if (newEmail || newPassword) {
+      const { error } = await supabase.auth.updateUser({
+        email: newEmail,
+        password: newPassword,
+      })
+
+      if (error) {
+        console.error("Fehler beim Speichern", error)
+      } else if (newPassword) {
+        await supabase.auth.signOut()
       } else {
         fetchData()
       }
@@ -92,6 +112,12 @@ export default function Profile() {
                 <p className="text-gray-700">
                   Username: <span className="text-xl">{user?.username}</span>
                 </p>
+                <p className="text-gray-700">
+                  E-Mail: <span className="text-xl">{user?.email}</span>
+                </p>
+                <p className="text-gray-700">
+                  Passwort: <span className="text-xl">••••••••</span>
+                </p>
               </div>
 
               <button
@@ -111,8 +137,7 @@ export default function Profile() {
                 name="firstname"
                 value={newFirstname}
                 onChange={(e) => setNewFirstname(e.target.value)}
-                placeholder="Vorname"
-                required
+                placeholder="Neuer Vorname"
               />
 
               <label className="text-gray-600 pl-2">Nachname</label>
@@ -121,8 +146,7 @@ export default function Profile() {
                 name="lastname"
                 value={newLastname}
                 onChange={(e) => setNewLastname(e.target.value)}
-                placeholder="Nachname"
-                required
+                placeholder="Neuer Nachname"
               />
 
               <label className="text-gray-600 pl-2">Username</label>
@@ -131,8 +155,25 @@ export default function Profile() {
                 name="username"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
-                placeholder="Username"
-                required
+                placeholder="Neuer Username"
+              />
+
+              <label className="text-gray-600 pl-2">E-Mail</label>
+              <FormFieldInput
+                type="email"
+                name="email"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                placeholder="Neue E-Mail"
+              />
+
+              <label className="text-gray-600 pl-2">Passwort</label>
+              <FormFieldInput
+                type="password"
+                name="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Neues Passwort"
               />
 
               <FormButton text="Änderungen übernehmen" />
