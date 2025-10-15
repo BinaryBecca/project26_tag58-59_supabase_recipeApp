@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
-import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import type { IRecipe } from "../../interfaces/IRecipe"
 import Button from "../button/Button"
 

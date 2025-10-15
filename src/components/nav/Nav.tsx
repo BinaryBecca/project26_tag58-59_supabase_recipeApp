@@ -23,10 +23,13 @@ export default function Nav() {
         <Link to="/">Home</Link>
         <Link to="recipes">Rezepte</Link>
         <Link to="about">Über uns</Link>
+        <Link to="create">Neues Cupcake-Rezept erstellen</Link>
       </div>
 
       <div className="flex flex-row items-center gap-2 text-l font-bold">
         <Link to="login">Login</Link>
+        <Link to="profile">Profile</Link>
+        <Link to="signup">SignUp</Link>
         <Button
           className="h-8 w-8 hover:h-10 hover:w-10 cursor-pointer"
           imgSrc={isDarkMode ? "/img/dark_mode.png" : "/img/light_mode.png"}
