@@ -1,10 +1,23 @@
-import { Link } from "react-router"
+import { Link, NavLink, useNavigate } from "react-router"
 import { useContext } from "react"
 import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
 import Button from "../button/Button"
+import { mainContext, type mainContextProps } from "../../context/MainProvider"
+import supabase from "../../utils/supabase"
 
 export default function Nav() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
+  const { isLoggedIn, setIsLoggedIn } = useContext(mainContext) as mainContextProps
+  const navigate = useNavigate()
+
+  async function logOut() {
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      console.error("Logout funktioniert nicht", error)
+    }
+    setIsLoggedIn(false)
+    navigate("/")
+  }
 
   // const handleOnClick = () => {
   //   if (isDarkMode) {
@@ -20,16 +33,42 @@ export default function Nav() {
       </div>
 
       <div className="flex flex-row gap-10 text-l font-bold">
-        <Link to="/">Home</Link>
-        <Link to="recipes">Rezepte</Link>
-        <Link to="about">Über uns</Link>
-        <Link to="create">Neues Cupcake-Rezept erstellen</Link>
+        <NavLink to="/" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+          Home
+        </NavLink>
+        <NavLink to="recipes" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+          Rezepte
+        </NavLink>
+        <NavLink to="about" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+          Über uns
+        </NavLink>
+        <NavLink to="create" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+          Neues Cupcake-Rezept erstellen
+        </NavLink>
       </div>
 
       <div className="flex flex-row items-center gap-2 text-l font-bold">
-        <Link to="login">Login</Link>
-        <Link to="profile">Profile</Link>
-        <Link to="signup">SignUp</Link>
+        <NavLink to="profile" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+          Profil
+        </NavLink>
+
+        {!isLoggedIn ? (
+          <>
+            <NavLink to="login" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+              Login
+            </NavLink>
+            <NavLink to="signup" className={({ isActive }) => ` ${isActive ? "border-b text-xl" : "text-gray-400"}`}>
+              SignUp
+            </NavLink>
+          </>
+        ) : (
+          <div className="flex items-center">
+            <button onClick={logOut} className="bg-pastelpink text-white py-2 px-4 rounded-3xl cursor-pointer">
+              Log Out
+            </button>
+          </div>
+        )}
+
         <Button
           className="h-8 w-8 hover:h-10 hover:w-10 cursor-pointer"
           imgSrc={isDarkMode ? "/img/dark_mode.png" : "/img/light_mode.png"}

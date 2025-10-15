@@ -26,7 +26,7 @@ export default function Login() {
         console.error("Fehler beim Login", error)
       }
       console.log("Login war erfolgreich", data)
-      navigate("/profile")
+      navigate("/")
     } catch (error) {
       console.error("Fehler beim Login", error)
     }
