@@ -6,13 +6,20 @@ import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/
 export default function Header() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const location = useLocation()
+
+  // prüfen, ob auf Detailseite (Achtung path variiert!)
   const detailPage = location.pathname.startsWith("/details")
+  // Routen, bei denen kein hero-img angzeigt werden soll
+  const pagesWithoutHeroImg = ["/signup", "/login", "/profile"]
+
+  // falls detailpage/pagesWithoutHeroImg => hidingHeroImg true
+  const hidingHeroImg = detailPage || pagesWithoutHeroImg.includes(location.pathname)
 
   return (
     <header className={`font-quicksand text-xl ${isDarkMode ? "bg-pastelblue/20" : "bg-pastelblue"}`}>
       <Nav />
 
-      {!detailPage && (
+      {!hidingHeroImg && (
         <div className="bg-[url('/img/hero-img.png')] relative bg-cover bg-center w-full px-20 py-30">
           <p className="relative text-white/90 text-5xl z-20 text-center">
             Entdecke himmlische Cupcake-Rezepte – und teile deine eigenen Kreationen mit der Community.
