@@ -4,9 +4,7 @@ import type { IRecipe } from "../interfaces/IRecipe"
 import supabase from "../utils/supabase"
 
 export async function getRecipes(): Promise<IRecipe[]> {
-  const { data: recipes, error } = await supabase
-    .from("recipes")
-    .select("id, name, description, servings, instructions, category_id, image_url")
+  const { data: recipes, error } = await supabase.from("recipes").select("*")
   if (error) {
     console.error(error)
   }
@@ -15,9 +13,7 @@ export async function getRecipes(): Promise<IRecipe[]> {
 }
 
 export async function getIngredients(): Promise<IIngredient[]> {
-  const { data: ingredients, error } = await supabase
-    .from("ingredients")
-    .select("id, recipe_id, name, quantity, unit, additional_info")
+  const { data: ingredients, error } = await supabase.from("ingredients").select("*")
   if (error) {
     console.error(error)
   }
@@ -26,7 +22,7 @@ export async function getIngredients(): Promise<IIngredient[]> {
 }
 
 export async function getCategories(): Promise<ICategory[]> {
-  const { data: categories, error } = await supabase.from("categories").select("id, name")
+  const { data: categories, error } = await supabase.from("categories").select("*")
   if (error) {
     console.error(error)
   }

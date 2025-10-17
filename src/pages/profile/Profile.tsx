@@ -5,6 +5,7 @@ import supabase from "../../utils/supabase"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
+import type { IRecipe } from "../../interfaces/IRecipe"
 // import { useNavigate } from "react-router"
 
 interface ProfileProps {
@@ -24,6 +25,7 @@ export default function Profile() {
   const [newUsername, setNewUsername] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [newPassword, setNewPassword] = useState("")
+  const [userRecipes, setUserRecipes] = useState<IRecipe[]>([])
 
   const fetchData = async () => {
     const {
@@ -42,6 +44,22 @@ export default function Profile() {
 
   useEffect(() => {
     fetchData()
+  }, [])
+
+  //# fetchRecipes from user to edit
+  const fetchUserRecipes = async () => {
+    if (user) {
+      const { data, error } = await supabase.from("recipes").select("*").eq("user_id", user.id)
+      if (error) {
+        console.error("Fehler beim Fetchen der Rezepte", error)
+      } else {
+        setUserRecipes(data || [])
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchUserRecipes()
   }, [])
 
   async function handleSave() {
@@ -88,7 +106,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex flex-col gap-5 items-center justify-center">
       <div
         className={`border rounded-2xl py-5 px-10  ${
           isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
@@ -180,6 +198,29 @@ export default function Profile() {
             </>
           )}
         </form>
+      </div>
+
+      <div
+        className={`border rounded-2xl py-5 px-10  ${
+          isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
+        }`}>
+        <h2
+          className={`text-center font-quicksand font-bold text-3xl px-5 mb-4 ${
+            isDarkMode ? "text-gray-700" : "text-white/80"
+          }`}>
+          Erstellte Rezepte
+        </h2>
+        <ul className="flex flex-row flex-wrap gap-4">
+          {userRecipes.map((recipe) => (
+            <li key={recipe.id} className="border p-4 rounded-xl">
+              <img className="h-50" src={recipe.image_url} alt={recipe.name} />
+              <h4 className="text-xl font-semibold">{recipe.name}</h4>
+              <p>{recipe.description}</p>
+              <p>{recipe.servings}</p>
+              <p>{recipe.instructions}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

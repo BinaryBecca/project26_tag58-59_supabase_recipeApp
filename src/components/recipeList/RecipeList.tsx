@@ -4,7 +4,7 @@ import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import type { IRecipe } from "../../interfaces/IRecipe"
 
 interface RecipeListProps {
-  selectingACategory: string | null
+  selectingACategory?: string | null
 }
 
 export default function RecipeList({ selectingACategory }: RecipeListProps) {

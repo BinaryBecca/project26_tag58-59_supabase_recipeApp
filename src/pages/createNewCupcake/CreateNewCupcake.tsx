@@ -6,13 +6,12 @@ import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
 import FormFieldSelect from "../../components/formFieldSelect/FormFieldSelect"
 import FormFieldTextarea from "../../components/formFieldTextarea/FormFieldTextarea"
+import { uploadImg } from "../../functions/uploadImg"
 import { mainContext } from "../../context/MainProvider"
 import type { IUser } from "../../interfaces/IUser"
-import { uploadImg } from "../../functions/uploadImg"
 
 interface CreateNewCupcakeProps {
   user: IUser
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>
 }
 
 export default function CreateNewCupcake() {
@@ -72,7 +71,16 @@ export default function CreateNewCupcake() {
       const { data: recipeData, error: recipeError } = await supabase
         .from("recipes")
         .insert([
-          { name: recipeName, description, servings, instructions, category_id: categoryId, image_url: uploadedImg },
+          {
+            name: recipeName,
+            description,
+            servings,
+            instructions,
+            category_id: categoryId,
+            image_url: uploadedImg,
+            // #user soll Rezept später editieren können!!!
+            user_id: user.id,
+          },
         ])
         .select()
         .single()
@@ -113,7 +121,7 @@ export default function CreateNewCupcake() {
     setDesription("")
     setServings(0)
     setInstructions("")
-    // setImageUrl("")
+    setImageUrl(null)
     setIngredients([])
     setFormError(null)
   }
