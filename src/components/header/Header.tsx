@@ -10,7 +10,7 @@ export default function Header() {
   // prüfen, ob auf Detailseite (Achtung path variiert!)
   const detailPage = location.pathname.startsWith("/details")
   // Routen, bei denen kein hero-img angzeigt werden soll
-  const pagesWithoutHeroImg = ["/signup", "/login", "/profile"]
+  const pagesWithoutHeroImg = ["/signup", "/login", "/profile", "/create"]
 
   // falls detailpage/pagesWithoutHeroImg => hidingHeroImg true
   const hidingHeroImg = detailPage || pagesWithoutHeroImg.includes(location.pathname)

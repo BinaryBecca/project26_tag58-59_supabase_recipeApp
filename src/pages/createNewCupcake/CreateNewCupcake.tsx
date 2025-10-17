@@ -6,22 +6,31 @@ import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
 import FormFieldSelect from "../../components/formFieldSelect/FormFieldSelect"
 import FormFieldTextarea from "../../components/formFieldTextarea/FormFieldTextarea"
+import { mainContext } from "../../context/MainProvider"
+import type { IUser } from "../../interfaces/IUser"
+import { uploadImg } from "../../functions/uploadImg"
+
+interface CreateNewCupcakeProps {
+  user: IUser
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+}
 
 export default function CreateNewCupcake() {
+  const { user, setUser } = useContext(mainContext) as CreateNewCupcakeProps
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const navigate = useNavigate()
 
-  const [categoryName, setCategoryName] = useState<string>("")
+  const [categoryName, setCategoryname] = useState<string>("")
 
-  const [recipesName, setRecipesName] = useState<string>("")
+  const [recipeName, setRecipeName] = useState<string>("")
   const [description, setDesription] = useState<string>("")
   const [servings, setServings] = useState<number>(0)
   const [instructions, setInstructions] = useState<string>("")
-  const [imageUrl, setImageUrl] = useState<string>("")
+  const [image_url, setImageUrl] = useState<File | null>(null)
 
   // mehrere Zutaten hinzufügen!
   const [ingredients, setIngredients] = useState<
-    { ingredientName: string; quantity: number; unit: string; additionalInfo: string }[]
+    { name: string; quantity: number; unit: string; additionalInfo: string }[]
   >([])
 
   // const [ingredientName, setIngredientName] = useState<string>("")
@@ -49,10 +58,22 @@ export default function CreateNewCupcake() {
 
       const categoryId = categoryData.id
 
+      // (falls da) img hochladen
+      const uploadedImg = await uploadImg(image_url)
+
+      console.log("URL:", uploadedImg)
+
+      if (!uploadedImg) {
+        setFormError("Bild konnte nicht hochgeladen werden")
+        return
+      }
+
       // recipes > Rezept speichern
       const { data: recipeData, error: recipeError } = await supabase
         .from("recipes")
-        .insert([{ recipesName, description, servings, instructions, category_id: categoryId }])
+        .insert([
+          { name: recipeName, description, servings, instructions, category_id: categoryId, image_url: uploadedImg },
+        ])
         .select()
         .single()
 
@@ -66,7 +87,7 @@ export default function CreateNewCupcake() {
       // ingredients-array > Zutaten speichern
       await supabase.from("ingredients").insert(
         ingredients.map((ing) => ({
-          ingredientName: ing.ingredientName,
+          ingredientName: ing.name,
           quantity: ing.quantity,
           unit: ing.unit,
           additionalInfo: ing.additionalInfo,
@@ -87,12 +108,12 @@ export default function CreateNewCupcake() {
 
   // alle Werte rauslöschen
   const reset = () => {
-    setRecipesName("")
+    setCategoryname("")
+    setRecipeName("")
     setDesription("")
     setServings(0)
     setInstructions("")
-    setImageUrl("")
-    setCategoryName("")
+    // setImageUrl("")
     setIngredients([])
     setFormError(null)
   }
@@ -114,9 +135,9 @@ export default function CreateNewCupcake() {
           <div className="flex flex-col align-item w-full">
             <FormFieldInput
               type="text"
-              name="recipesName"
-              value={recipesName}
-              onChange={(e) => setRecipesName(e.target.value)}
+              name="recipeName"
+              value={recipeName}
+              onChange={(e) => setRecipeName(e.target.value)}
               placeholder="Rezeptname *"
               required={true}
             />
@@ -134,15 +155,15 @@ export default function CreateNewCupcake() {
               <FormFieldSelect
                 name="categories"
                 value={categoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
+                onChange={(e) => setCategoryname(e.target.value)}
                 required={true}
                 placeholder="Wähle eine Kategorie aus *"
                 options={[
-                  { label: "Klassisch", value: "klassisch" },
-                  { label: "Besondere Anlässe", value: "besondereAnlässe" },
-                  { label: "Saisonal", value: "saisonal" },
-                  { label: "Gesund & Vegan", value: "gesundUndVegan" },
-                  { label: "Schokoladengenuss", value: "schokoladengenuss" },
+                  { label: "Klassisch", value: "Klassisch" },
+                  { label: "Besondere Anlässe", value: "Besondere Anlässe" },
+                  { label: "Saisonal", value: "Saisonal" },
+                  { label: "Gesund & Vegan", value: "Gesund & Vegan" },
+                  { label: "Schokoladengenuss", value: "Schokoladengenuss" },
                 ]}
               />
             </div>
@@ -173,6 +194,16 @@ export default function CreateNewCupcake() {
                 isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
               }`}>
               <p>Hier img hochladen</p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setImageUrl(e.target.files[0])
+                  }
+                }}
+                className="w-full text-gray-700"
+              />
             </div>
 
             {ingredients.map((ing, index) => (
@@ -184,10 +215,10 @@ export default function CreateNewCupcake() {
                 <FormFieldInput
                   type="text"
                   name="ingredient"
-                  value={ing.ingredientName}
+                  value={ing.name}
                   onChange={(e) => {
                     // addingIngredient[index] = Obj. in Array
-                    addingIngredient[index].ingredientName = e.target.value
+                    addingIngredient[index].name = e.target.value
                     setIngredients(addingIngredient)
                   }}
                   placeholder="Zutat"
@@ -233,7 +264,7 @@ export default function CreateNewCupcake() {
               type="button"
               onClick={() =>
                 // leere Zutat hinzufügen
-                setIngredients([...ingredients, { ingredientName: "", quantity: 0, unit: "", additionalInfo: "" }])
+                setIngredients([...ingredients, { name: "", quantity: 0, unit: "", additionalInfo: "" }])
               }>
               + Zutat hinzufügen
             </button>
@@ -246,20 +277,9 @@ export default function CreateNewCupcake() {
                 Abbrechen
               </button>
 
-              <FormButton text="Rezept anlegen" />
+              <FormButton type="submit" text="Rezept anlegen" />
             </div>
           </div>
-
-          {/* <p className="text-center text-s text-gray-700">
-            Noch nicht angemeldet?{" "}
-            <Link
-              to="/signup"
-              className={`text-m ${
-                isDarkMode ? "text-pastelpink hover:text-pink-500" : "text-gray-400 hover:text-gray-50"
-              }`}>
-              Anmelden
-            </Link>
-          </p> */}
         </form>
       </div>
     </div>
