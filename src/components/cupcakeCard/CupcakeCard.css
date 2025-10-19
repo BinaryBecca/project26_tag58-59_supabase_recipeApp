@@ -1,0 +1,213 @@
+/* Cupcake nach folgender Vorlage: https://codepen.io/aitchiss/pen/jOWzEKv */
+
+:root {
+  --pastelyellow: #ffe69a;
+  --pastelpink: #ffb6d5;
+  --darkred: #6c0202;
+  --lineColor: #a9a9a9;
+}
+
+.box-canvas {
+  position: relative;
+  margin: auto;
+  display: block;
+  margin-top: 4rem;
+  width: 21.875rem;
+  height: 26.25rem;
+}
+
+.wrapper {
+  position: absolute;
+  top: 11.575rem;
+  background: repeating-linear-gradient(
+    to right,
+    var(--pastelyellow),
+    #c9a86b 0.4375rem,
+    var(--pastelyellow) 0.5625rem
+  );
+  width: 21.875rem;
+  height: 15.625rem;
+  clip-path: polygon(15% 100%, 84% 100%, 100% 0, 0 0);
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.329);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.topping {
+  position: absolute;
+  top: 8.102rem;
+  left: -0.73rem;
+  width: 23.334rem;
+  height: 5.787rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.topping::before {
+  content: "";
+  position: absolute;
+  width: 12.396rem;
+  height: 5.787rem;
+  border-radius: 50% 0 0 50%;
+  background: transparent;
+  transform: skew(10deg, 5deg);
+  border-bottom: 3px solid var(--lineColor);
+}
+
+.topping::after {
+  content: "";
+  position: absolute;
+  border-bottom: 3px solid var(--lineColor);
+  left: 10.9375rem;
+  width: 12.396rem;
+  height: 5.787rem;
+  border-radius: 0 50% 50% 0;
+  background: transparent;
+  transform: skew(-10deg, -5deg);
+}
+
+.topping-middle {
+  position: absolute;
+  top: 4.629rem;
+  left: 0.729rem;
+  width: 20.416rem;
+  height: 5.787rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.topping-middle::before {
+  content: "";
+  position: absolute;
+  background: transparent;
+  width: 10.938rem;
+  height: 5.787rem;
+  border-radius: 50% 0 0 50%;
+  transform: skew(10deg, 5deg);
+  border-bottom: 3px solid var(--lineColor);
+}
+
+.topping-middle::after {
+  content: "";
+  position: absolute;
+  left: 9.478rem;
+  background: transparent;
+  width: 10.938rem;
+  height: 5.787rem;
+  border-radius: 0 50% 50% 0;
+  transform: skew(-10deg, -5deg);
+  border-bottom: 3px solid var(--lineColor);
+}
+
+.topping-top {
+  position: absolute;
+  left: 3.646rem;
+  top: 1.157rem;
+  width: 16.041rem;
+  height: 5.787rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.topping-top::before {
+  content: "";
+  position: absolute;
+  background: transparent;
+  width: 8.021rem;
+  height: 5.787rem;
+  border-radius: 50% 0 0 50%;
+  transform: skew(10deg, 5deg);
+  border-bottom: 3px solid var(--lineColor);
+}
+
+.topping-top::after {
+  content: "";
+  position: absolute;
+  left: 6.5625rem;
+  background: transparent;
+  width: 8.021rem;
+  height: 5.787rem;
+  border-radius: 0 50% 50% 0;
+  transform: skew(-10deg, -5deg);
+  border-bottom: 3px solid var(--lineColor);
+}
+
+.toppings-wrap {
+  position: absolute;
+  left: 0;
+  top: -3.4rem;
+  width: 100%;
+  height: 15rem;
+  z-index: 0;
+  overflow: hidden;
+  clip-path: polygon(
+    0% 100%,
+    /* unten links */ 100% 100%,
+    /* unten rechts */ 90% 70%,
+    /* leicht schräg nach oben */ 66% 42%,
+    /* Mitte – folgt den Rundungen */ 58% 20%,
+    /* leicht rund an der Spitze */ 28% 46%,
+    /* symmetrisch zurück */ 10% 72% /* unten links schräg */
+  );
+}
+
+.toppings-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cherry {
+  position: absolute;
+  left: 9.916rem;
+  top: -1.736rem;
+  transform: rotate(-10deg);
+  height: 0;
+  width: 0;
+  border-left: 0.729rem solid transparent;
+  border-right: 0.729rem solid transparent;
+  border-top: 2.315rem solid var(--darkred);
+  z-index: 2;
+}
+
+.cherry::before {
+  content: "";
+  position: absolute;
+  left: -2.916rem;
+  top: -0.926rem;
+  background: linear-gradient(180deg, #e75480 0%, var(--pastelpink) 75%);
+  width: 2.916rem;
+  height: 3.473rem;
+  border-radius: 50% 30% 0 50%;
+}
+
+.cherry::after {
+  content: "";
+  position: absolute;
+  left: -0.05rem;
+  top: -0.926rem;
+  background: linear-gradient(180deg, #e75480 0%, var(--pastelpink) 75%);
+  width: 2.916rem;
+  height: 3.473rem;
+  border-radius: 30% 50% 50% 0;
+}
