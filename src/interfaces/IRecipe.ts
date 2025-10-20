@@ -9,4 +9,5 @@ export interface IRecipe {
   category_id: string
   categories: ICategory[]
   image_url?: string
+  user_id?: string
 }

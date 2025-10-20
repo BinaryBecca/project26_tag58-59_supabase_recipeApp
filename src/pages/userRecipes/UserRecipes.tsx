@@ -4,6 +4,10 @@ import { mainContext } from "../../context/MainProvider"
 import type { IUser } from "../../interfaces/IUser"
 import type { IRecipe } from "../../interfaces/IRecipe"
 import supabase from "../../utils/supabase"
+import type { IIngredient } from "../../interfaces/IIngredient"
+import CupcakeCard from "../../components/cupcakeCard/CupcakeCard"
+import CupcakeList from "../../components/cupcakeList/CupcakeList"
+import UserRecipeList from "../../components/userRecipeList/UserRecipeList"
 
 interface UserRecipesProps {
   user: IUser
@@ -16,8 +20,9 @@ export default function UserRecipes() {
   const { user } = useContext(mainContext) as UserRecipesProps
 
   const [userRecipes, setUserRecipes] = useState<IRecipe[]>([])
+  const [userIngredients, setUserIngredients] = useState<IIngredient[]>([])
 
-  //# fetchRecipes from user to edit
+  //# fetch recipes from user to edit
   const fetchUserRecipes = async () => {
     if (user) {
       const { data, error } = await supabase.from("recipes").select("*").eq("user_id", user.id)
@@ -29,13 +34,30 @@ export default function UserRecipes() {
     }
   }
 
+  //# fetch ingredients from user to edit
+  const fetchUserIngredients = async () => {
+    if (user) {
+      const { data, error } = await supabase.from("ingredients").select("*").eq("user_id", user.id)
+      if (error) {
+        console.error("Fehler beim Fetchen der Zutaten", error)
+      } else {
+        setUserIngredients(data || [])
+      }
+    }
+  }
+
   useEffect(() => {
     fetchUserRecipes()
+    fetchUserIngredients()
   }, [])
+
   return (
     <>
       <FormFieldWrapper title="Erstellte Rezepte">
-        <ul className="flex flex-row flex-wrap gap-4">
+        <UserRecipeList />
+      </FormFieldWrapper>
+
+      {/* <ul className="flex flex-row flex-wrap gap-4">
           {userRecipes.map((recipe) => (
             <li key={recipe.id} className="border p-4 rounded-xl">
               <img className="h-50" src={recipe.image_url} alt={recipe.name} />
@@ -45,8 +67,7 @@ export default function UserRecipes() {
               <p>{recipe.instructions}</p>
             </li>
           ))}
-        </ul>
-      </FormFieldWrapper>
+        </ul> */}
     </>
   )
 }
