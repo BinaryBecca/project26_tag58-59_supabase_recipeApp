@@ -8,8 +8,6 @@ import FormButton from "../../components/formButton/FormButton"
 import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
 import FormFieldLabel from "../../components/formFieldLabel/FormFieldLabel"
 import { Link } from "react-router"
-import CupcakeCard from "../../components/cupcakeCard/CupcakeCard"
-// import { useNavigate } from "react-router"
 
 interface ProfileProps {
   user: IUser
@@ -19,8 +17,6 @@ interface ProfileProps {
 export default function Profile() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const { user, setUser } = useContext(mainContext) as ProfileProps
-
-  // const navigate = useNavigate()
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [newFirstname, setNewFirstname] = useState("")
@@ -175,29 +171,37 @@ export default function Profile() {
               placeholder="Neues Passwort"
             />
 
-            <div className=" flex mt-4 gap-3">
+            <div className="flex mt-4 gap-3 items-center justify-center">
               <FormButton text="Profil ändern" />
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="p-2 border border-gray-500 rounded-4xl text-md sm:text-l cursor-pointer">
+                className="p-2 mb-4 border border-gray-500 rounded-4xl text-md sm:text-l cursor-pointer">
                 Abbrechen
               </button>
             </div>
           </>
         )}
       </form>
-      <h2
-        className={`text-center font-quicksand font-bold text-3xl pb-6 ${
-          isDarkMode ? "text-gray-700" : "text-white/80"
-        }`}>
-        Rezepte bearbeiten
-      </h2>
-      <Link to="/user_recipes" className="flex flex-col mb-4 items-center">
-        {" "}
-        <img className="h-50 object-contain" src={isDarkMode ? "/img/baker_light.png" : "/img/baker_dark.png"} alt="" />
-      </Link>
-      <p className="text-gray-500 text-center text-xs">Klicke auf den Bäcker</p>
+      {!isEditing && (
+        <div>
+          <h2
+            className={`text-center font-quicksand font-bold text-3xl pb-6 ${
+              isDarkMode ? "text-gray-700" : "text-white/80"
+            }`}>
+            Rezepte bearbeiten
+          </h2>
+          <Link to="/user_recipes" className="flex flex-col mb-4 items-center">
+            {" "}
+            <img
+              className="h-50 object-contain"
+              src={isDarkMode ? "/img/baker_light.png" : "/img/baker_dark.png"}
+              alt=""
+            />
+          </Link>
+          <p className="text-gray-500 text-center text-xs">Klicke auf den Bäcker</p>
+        </div>
+      )}
     </FormFieldWrapper>
   )
 }

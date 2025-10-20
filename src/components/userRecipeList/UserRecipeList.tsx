@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import RecipeCard from "../userRecipeCard/UserRecipeCard"
 import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import type { IRecipe } from "../../interfaces/IRecipe"
+import UserRecipeCard from "../userRecipeCard/UserRecipeCard"
 
 export default function UserRecipeList() {
   const { recipes, user } = useContext(mainContext) as mainContextProps
@@ -14,7 +14,7 @@ export default function UserRecipeList() {
         <p className="text-center px-5">Es sind noch keine Rezepte erstellt worden</p>
       ) : (
         userRecipes.map((recipe: IRecipe) => {
-          return <RecipeCard key={recipe.id} recipe={recipe} />
+          return <UserRecipeCard key={recipe.id} recipe={recipe} />
         })
       )}
     </section>

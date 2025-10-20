@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { darkModeContext, type DarkmodeProviderProps } from "../darkModeContext/DarkModeProvider"
 import type { IRecipe } from "../../interfaces/IRecipe"
-import FormButton from "../formButton/FormButton"
+import { Link } from "react-router"
 
 interface UserRecipeCardProps {
   recipe: IRecipe
@@ -34,7 +34,13 @@ export default function UserRecipeCard({ recipe }: UserRecipeCardProps) {
 
           <h2 className="font-bold text-2xl z-10">{recipe.name}</h2>
           <p className="text-xl text-center z-10">{recipe.description}</p>
-          <FormButton type="button" text="Bearbeiten" />
+          <Link
+            to="/editing_recipes"
+            className={`z-20 p-2 mb-4 border border-white/80 rounded-4xl text-md sm:text-l cursor-pointer ${
+              isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
+            }`}>
+            Bearbeiten
+          </Link>
         </div>
       </div>
     </>
