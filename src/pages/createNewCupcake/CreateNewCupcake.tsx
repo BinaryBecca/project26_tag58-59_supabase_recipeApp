@@ -10,6 +10,7 @@ import { uploadImg } from "../../functions/uploadImg"
 import { mainContext } from "../../context/MainProvider"
 import type { IUser } from "../../interfaces/IUser"
 import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
+import FormFieldLabel from "../../components/formFieldLabel/FormFieldLabel"
 
 interface CreateNewCupcakeProps {
   user: IUser
@@ -131,58 +132,64 @@ export default function CreateNewCupcake() {
     <FormFieldWrapper title="Neues Rezept erstellen">
       <form className="py-10 px-2" onSubmit={handleSubmit}>
         <div className="flex flex-col align-item w-full">
+          <FormFieldLabel text="Rezeptname" required />
           <FormFieldInput
             type="text"
             name="recipeName"
             value={recipeName}
             onChange={(e) => setRecipeName(e.target.value)}
-            placeholder="Rezeptname *"
+            placeholder="z.B. Vanille-Cupcakes"
             required={true}
           />
 
-          <div className="flex flex-row justify-between gap-2 items-center">
-            <FormFieldInput
-              type="number"
-              name="servings"
-              value={servings.toString()}
-              onChange={(e) => setServings(Number(e.target.value))}
-              placeholder="Portionen (z.B. 4) *"
-              required={true}
-            />
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-2 sm:items-center">
+            <div className="flex flex-col flex-1">
+              <FormFieldLabel text="Portionen" required />
+              <FormFieldInput
+                type="number"
+                name="servings"
+                value={servings.toString()}
+                onChange={(e) => setServings(Number(e.target.value))}
+                placeholder="Portionen (z.B. 4) *"
+                required={true}
+              />
+            </div>
 
-            <FormFieldSelect
-              name="categories"
-              value={categoryName}
-              onChange={(e) => setCategoryname(e.target.value)}
-              required={true}
-              placeholder="Wähle eine Kategorie aus *"
-              options={[
-                { label: "Klassisch", value: "Klassisch" },
-                { label: "Besondere Anlässe", value: "Besondere Anlässe" },
-                { label: "Saisonal", value: "Saisonal" },
-                { label: "Gesund & Vegan", value: "Gesund & Vegan" },
-                { label: "Schokoladengenuss", value: "Schokoladengenuss" },
-              ]}
-            />
+            <div className="flex flex-col flex-1">
+              <FormFieldLabel text="Kategorien" required />
+              <FormFieldSelect
+                name="categories"
+                value={categoryName}
+                onChange={(e) => setCategoryname(e.target.value)}
+                required={true}
+                placeholder="Wähle eine Kategorie aus"
+                options={[
+                  { label: "Klassisch", value: "Klassisch" },
+                  { label: "Besondere Anlässe", value: "Besondere Anlässe" },
+                  { label: "Saisonal", value: "Saisonal" },
+                  { label: "Gesund & Vegan", value: "Gesund & Vegan" },
+                  { label: "Schokoladengenuss", value: "Schokoladengenuss" },
+                ]}
+              />
+            </div>
           </div>
 
+          <FormFieldLabel text="Beschreibung" required />
           <FormFieldInput
             type="text"
             name="descriptions"
             value={description}
             onChange={(e) => setDesription(e.target.value)}
-            placeholder="Beschreibung *"
+            placeholder="z.B. Klassische Vanille-Cupcakes"
             required={true}
           />
 
+          <FormFieldLabel text="Anleitung" required />
           <FormFieldTextarea
             name="instructions"
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
-            placeholder={`Anleitung *
-              z.B.
-              1. Mische die trockenen Zutaten in einer Schüssel.
-              2. Dreh dich im Kreis.`}
+            placeholder={`z.B. 1. Ofen auf 180°C Ober-/Unterhitze vorheizen. 2. Mische die trockenen Zutaten in einer Schüssel. 3. Danceparty.`}
             rows={5}
           />
 
@@ -191,7 +198,7 @@ export default function CreateNewCupcake() {
             className={`border rounded-2xl py-5 px-10 mb-4  ${
               isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
             }`}>
-            <p>Hier img hochladen</p>
+            <p className="text-gray-600">Bild zu Rezept hinzufügen:</p>
             <input
               type="file"
               accept="image/*"
@@ -200,7 +207,7 @@ export default function CreateNewCupcake() {
                   setImageUrl(e.target.files[0])
                 }
               }}
-              className="w-full text-gray-700"
+              className="w-full text-gray-700 text-lg"
             />
           </div>
 
@@ -210,6 +217,7 @@ export default function CreateNewCupcake() {
               className={`flex flex-col border rounded-2xl py-5 px-10 mb-8  ${
                 isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
               }`}>
+              <FormFieldLabel text="Zutat" required />
               <FormFieldInput
                 type="text"
                 name="ingredient"
@@ -219,31 +227,39 @@ export default function CreateNewCupcake() {
                   addingIngredient[index].name = e.target.value
                   setIngredients(addingIngredient)
                 }}
-                placeholder="Zutat"
+                placeholder="z.B. Butter"
               />
-              <div className="flex flex-row">
-                <FormFieldInput
-                  type="number"
-                  name="quantity"
-                  value={ing.quantity.toString()}
-                  onChange={(e) => {
-                    addingIngredient[index].quantity = Number(e.target.value)
-                    setIngredients(addingIngredient)
-                  }}
-                  placeholder="Menge"
-                />
 
-                <FormFieldInput
-                  type="string"
-                  name="unit"
-                  value={ing.unit}
-                  onChange={(e) => {
-                    addingIngredient[index].unit = e.target.value
-                    setIngredients(addingIngredient)
-                  }}
-                  placeholder="Einheit"
-                />
+              <div className="flex flex-col sm:flex-row">
+                <div className="flex flex-col">
+                  <FormFieldLabel text="Menge" required />
+                  <FormFieldInput
+                    type="number"
+                    name="quantity"
+                    value={ing.quantity.toString()}
+                    onChange={(e) => {
+                      addingIngredient[index].quantity = Number(e.target.value)
+                      setIngredients(addingIngredient)
+                    }}
+                    placeholder="Menge"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <FormFieldLabel text="Einheit" required />
+                  <FormFieldInput
+                    type="string"
+                    name="unit"
+                    value={ing.unit}
+                    onChange={(e) => {
+                      addingIngredient[index].unit = e.target.value
+                      setIngredients(addingIngredient)
+                    }}
+                    placeholder="z.B. g"
+                  />
+                </div>
               </div>
+              <FormFieldLabel text="Zusätliche Informationen" />
               <FormFieldInput
                 type="string"
                 name="additionalInfo"

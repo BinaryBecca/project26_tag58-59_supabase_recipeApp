@@ -29,7 +29,6 @@ export default function FormFieldTextarea({
       required={required}
       rows={rows}
       className={`px-5 py-2 mb-4 border border-white/80 rounded-4xl resize-none 
-      ${isDarkMode ? "bg-pastelpink/40 text-black" : "bg-white/20 text-gray-500"}`}
-    />
+      ${isDarkMode ? "bg-pastelpink/40 text-black" : "bg-white/20 text-gray-500"}`}></textarea>
   )
 }

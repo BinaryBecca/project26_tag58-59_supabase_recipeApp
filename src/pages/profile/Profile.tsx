@@ -7,6 +7,7 @@ import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
 import type { IRecipe } from "../../interfaces/IRecipe"
 import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
+import FormFieldLabel from "../../components/formFieldLabel/FormFieldLabel"
 // import { useNavigate } from "react-router"
 
 interface ProfileProps {
@@ -107,12 +108,12 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col gap-5 items-center justify-center">
+    <div className="min-h-screen flex flex-col sm:flex-row gap-5 items-center justify-center">
       <FormFieldWrapper title="Profil bearbeiten">
         <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSave}>
           {!isEditing ? (
             <>
-              <div className="flex flex-col gap-4 text-gray-700 mb-10">
+              <div className="flex flex-col gap-4 text-gray-700 mb-10 px-10">
                 <div className="flex">
                   <span className="w-25 font-bold">Vorname:</span>
                   <span className="text-gray-600">{user?.firstname}</span>
@@ -138,7 +139,7 @@ export default function Profile() {
               <button
                 type="button"
                 onClick={handleClick}
-                className={`p-2 mb-4 border border-white/80 rounded-4xl text-xl cursor-pointer ${
+                className={`p-2 mb-4 border border-white/80 rounded-4xl text-md sm:text-l cursor-pointer ${
                   isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
                 }`}>
                 Bearbeiten
@@ -146,7 +147,7 @@ export default function Profile() {
             </>
           ) : (
             <>
-              <label className="text-gray-600 pl-2">Vorname</label>
+              <FormFieldLabel text="Vorname" />
               <FormFieldInput
                 type="text"
                 name="firstname"
@@ -155,7 +156,7 @@ export default function Profile() {
                 placeholder="Neuer Vorname"
               />
 
-              <label className="text-gray-600 pl-2">Nachname</label>
+              <FormFieldLabel text="Nachname" />
               <FormFieldInput
                 type="text"
                 name="lastname"
@@ -164,7 +165,7 @@ export default function Profile() {
                 placeholder="Neuer Nachname"
               />
 
-              <label className="text-gray-600 pl-2">Nutzername</label>
+              <FormFieldLabel text="Nutzername" />
               <FormFieldInput
                 type="text"
                 name="username"
@@ -173,7 +174,7 @@ export default function Profile() {
                 placeholder="Neuer Username"
               />
 
-              <label className="text-gray-600 pl-2">E-Mail</label>
+              <FormFieldLabel text="E-Mail" />
               <FormFieldInput
                 type="email"
                 name="email"
@@ -182,7 +183,7 @@ export default function Profile() {
                 placeholder="Neue E-Mail"
               />
 
-              <label className="text-gray-600 pl-2">Passwort</label>
+              <FormFieldLabel text="Passwort" />
               <FormFieldInput
                 type="password"
                 name="password"
@@ -192,11 +193,11 @@ export default function Profile() {
               />
 
               <div className=" flex mt-4 gap-3">
-                <FormButton text="Änderungen übernehmen" />
+                <FormButton text="Profil ändern" />
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="p-2 mb-4 border border-gray-500 rounded-4xl text-l cursor-pointer">
+                  className="p-2 mb-4 border border-gray-500 rounded-4xl text-md sm:text-l cursor-pointer">
                   Abbrechen
                 </button>
               </div>

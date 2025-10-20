@@ -10,13 +10,13 @@ export default function FormFieldWrapper({ title, children }: FormFieldWrapperPr
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-20">
+    <div className="min-h-screen flex items-center justify-center mx-4 py-5">
       <div
-        className={`border rounded-2xl py-5 px-10 ${
+        className={`w-full max-w-md sm:max-w-none sm:w-auto border rounded-2xl py-5 px-6 sm:px-10 ${
           isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
         }`}>
         <h2
-          className={`text-center font-quicksand font-bold text-3xl px-5 ${
+          className={`text-center font-quicksand font-bold text-3xl pt-5 pb-6 ${
             isDarkMode ? "text-gray-700" : "text-white/80"
           }`}>
           {title}
