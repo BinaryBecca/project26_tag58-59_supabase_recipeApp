@@ -15,7 +15,7 @@ interface CreateNewCupcakeProps {
 }
 
 export default function CreateNewCupcake() {
-  const { user, setUser } = useContext(mainContext) as CreateNewCupcakeProps
+  const { user } = useContext(mainContext) as CreateNewCupcakeProps
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const navigate = useNavigate()
 

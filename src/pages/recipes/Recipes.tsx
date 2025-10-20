@@ -1,6 +1,6 @@
 import { useState } from "react"
 import CategoriesBar from "../../components/categoriesBar/CategoriesBar"
-import RecipeList from "../../components/recipeList/RecipeList"
+import CupcakeList from "../../components/cupcakeList/CupcakeList"
 
 export default function Recipes() {
   const [selectingACategory, setSelectingACategory] = useState<string | null>(null)
@@ -8,7 +8,7 @@ export default function Recipes() {
   return (
     <>
       <CategoriesBar selectingACategory={selectingACategory} setSelectingACategory={setSelectingACategory} />
-      <RecipeList selectingACategory={selectingACategory} />
+      <CupcakeList selectingACategory={selectingACategory} />
     </>
   )
 }

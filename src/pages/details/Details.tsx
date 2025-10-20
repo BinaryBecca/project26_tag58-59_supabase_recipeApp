@@ -52,9 +52,9 @@ export default function Details() {
     <section className="flex flex-col justify-between">
       <div
         className="relative bg-cover bg-center w-full px-20 py-30"
-        style={{ backgroundImage: `url(${showingRecipe.image_url})` }}>
+        style={{ backgroundImage: `url(${showingRecipe.image_url || "/img/placeholder-img.png"})` }}>
         <p className="relative text-white/80 text-5xl z-20 text-center">{showingRecipe.name}</p>
-        <div className="absolute inset-0 bg-black/45 z-10"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
       <div className="py-10 px-20 font-quicksand text-2xl">

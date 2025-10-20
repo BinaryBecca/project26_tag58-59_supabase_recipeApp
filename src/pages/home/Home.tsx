@@ -1,9 +1,9 @@
-import RecipeList from "../../components/recipeList/RecipeList"
+import CupcakeList from "../../components/cupcakeList/CupcakeList"
 
 export default function Home() {
   return (
     <div>
-      <RecipeList />
+      <CupcakeList />
     </div>
   )
 }

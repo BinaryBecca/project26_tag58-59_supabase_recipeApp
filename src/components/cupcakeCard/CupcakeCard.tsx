@@ -34,10 +34,10 @@ export default function CupcakeCard({ recipe }: CupcakeCardProps) {
           className="toppings-bg"
           src={recipe.image_url}
           alt={recipe.name}
-          onError={(e) => {
-            e.currentTarget.onerror = null
-            e.currentTarget.src = "/img/placeholder-img.png"
-          }}
+          // onError={(e) => {
+          //   e.currentTarget.onerror = null
+          //   e.currentTarget.src = "/img/placeholder-img.png"
+          // }}
         />
         <div className="topping" />
         <div className="topping-middle" />

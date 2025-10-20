@@ -20,7 +20,7 @@ export default function CupcakeList({ selectingACategory }: CupcakeListProps) {
   }
 
   return (
-    <section className="flex flex-row flex-wrap justify-evenly pt-5 gap-10">
+    <section className="flex flex-row flex-wrap justify-evenly pt-5 gap-10 pb-20">
       {getFilteredRecipes().map((recipe: IRecipe) => {
         return <CupcakeCard key={recipe.id} recipe={recipe} />
       })}

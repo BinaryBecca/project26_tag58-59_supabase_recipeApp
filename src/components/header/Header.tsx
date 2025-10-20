@@ -21,8 +21,11 @@ export default function Header() {
 
       {!hidingHeroImg && (
         <div className="bg-[url('/img/hero-img.png')] relative bg-cover bg-center w-full px-20 py-30">
-          <p className="relative text-white/90 text-5xl z-20 text-center">
-            Entdecke himmlische Cupcake-Rezepte – und teile deine eigenen Kreationen mit der Community.
+          <p className="relative text-white/90 text-center z-20 text-2xl md:text-5xl">
+            <span className="block sm:hidden">Cupcake-Rezepte entdecken & teilen.</span>
+            <span className="hidden sm:block">
+              Entdecke himmlische Cupcake-Rezepte – und teile deine eigenen Kreationen mit der Community.
+            </span>
           </p>
           <div className="absolute inset-0 bg-black/45 z-10"></div>
         </div>
