@@ -45,9 +45,9 @@ export default function Nav() {
         <button
           className="lg:hidden md:absolute md:top-8 md:right-4 flex flex-col gap-1 md:gap-2 p-2"
           onClick={() => setOpenBurgerMenu(!openBurgerMenu)}>
-          <div className="w-1.5 h-1.5 bg-gray-600 rounded-full md:w-8 md:h-1 md:rounded"></div>
-          <div className="w-1.5 h-1.5 bg-gray-600 rounded-full md:w-8 md:h-1 md:rounded"></div>
-          <div className="w-1.5 h-1.5 bg-gray-600 rounded-full md:w-8 md:h-1 md:rounded"></div>
+          <div className="w-1.5 h-1.5 bg-gray-500 rounded-full md:w-7.5 md:h-[.2rem] md:rounded"></div>
+          <div className="w-1.5 h-1.5 bg-gray-500 rounded-full md:w-7.5 md:h-[.2rem] md:rounded"></div>
+          <div className="w-1.5 h-1.5 bg-gray-500 rounded-full md:w-7.5 md:h-[.2rem] md:rounded"></div>
         </button>
       </div>
 

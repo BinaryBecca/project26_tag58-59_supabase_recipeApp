@@ -20,8 +20,8 @@ export default function Header() {
       <Nav />
 
       {!hidingHeroImg && (
-        <div className="bg-[url('/img/hero-img.png')] relative bg-cover bg-center w-full px-20 py-30">
-          <p className="relative text-white/90 text-center z-20 text-2xl md:text-5xl">
+        <div className="bg-[url('/img/hero-img.png')] relative bg-cover bg-center w-full px-10 py-20 sm:px-20 sm:py-30">
+          <p className="relative text-white/90 text-center z-20 text-3xl md:text-5xl">
             <span className="block sm:hidden">Cupcake-Rezepte entdecken & teilen.</span>
             <span className="hidden sm:block">
               Entdecke himmlische Cupcake-Rezepte – und teile deine eigenen Kreationen mit der Community.

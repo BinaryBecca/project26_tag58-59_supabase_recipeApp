@@ -53,14 +53,14 @@ export default function Details() {
       <div
         className="relative bg-cover bg-center w-full px-20 py-30"
         style={{ backgroundImage: `url(${showingRecipe.image_url || "/img/placeholder-img.png"})` }}>
-        <p className="relative text-white/80 text-5xl z-20 text-center">{showingRecipe.name}</p>
+        <p className="relative text-white/80 text-4xl sm:text-5xl z-20 text-center">{showingRecipe.name}</p>
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
-      <div className="py-10 px-20 font-quicksand text-2xl">
-        <h1 className="text-6xl font-bold pb-2">{showingRecipe.name}</h1>
+      <div className="py-8 px-5 sm:py-10 sm:px-10 md:px-15 lg:px-20 font-quicksand text-xl sm:text-2xl">
+        <h1 className="text-3xl sm:text-6xl font-bold pb-2">{showingRecipe.name}</h1>
         <h2 className="pb-8">{showingRecipe.description}</h2>
-        <h2 className="font-bold text-3xl pb-4">Zutaten</h2>
+        <h2 className="font-bold text-2xl sm:text-3xl pb-4">Zutaten</h2>
         <div className={`p-5 mb-4 ${isDarkMode ? "bg-pastelpink/40" : "bg-white/20"}`}>
           Für <span className="font-bold">{showingRecipe.servings}</span> Portionen
         </div>
@@ -83,7 +83,7 @@ export default function Details() {
           })}
         </ul>
 
-        <h2 className="font-bold text-3xl pb-4">Zubereitung</h2>
+        <h2 className="font-bold text-2xl sm:text-3xl pb-4">Zubereitung</h2>
 
         <ol className="list-decimal list-inside pb-8">
           {showingRecipe.instructions
@@ -102,34 +102,41 @@ export default function Details() {
             })}
         </ol>
 
-        <h2 className="font-bold text-3xl pb-4">Kategorie</h2>
-        <div className={`inline-block p-5 mb-20 rounded-4xl ${isDarkMode ? "bg-pastelpink/40" : "bg-white/20"}`}>
+        <h2 className="font-bold text-2xl sm:text-3xl pb-4">Kategorie</h2>
+        <div
+          className={`inline-block p-5 mb-10 sm:mb-20 rounded-4xl ${isDarkMode ? "bg-pastelpink/40" : "bg-white/20"}`}>
           {showingCategory.map((category) => {
             return <p key={category.id}>{category.name}</p>
           })}
         </div>
 
         <div className="flex items-center justify-between">
-          {navigateToLastEntry && (
-            <Button
-              navigateTo={`/details/${navigateToLastEntry.id}`}
-              className="rotate-180 h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-              imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
-              imgHoverSrc="/img/arrow.png"
-              imgAlt="arrow right"
-              imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
-            />
-          )}
-          {navigateToNextEntry && (
-            <Button
-              navigateTo={`/details/${navigateToNextEntry.id}`}
-              className="h-10 w-10 cursor-pointer hover:h-11 hover:w-11 rounded-full overflow-hidden"
-              imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
-              imgHoverSrc="/img/arrow.png"
-              imgAlt="arrow right"
-              imgClassName="h-10 w-10 object-contain hover:h-11 hover:w-11 hover:bg-pastelpink/80"
-            />
-          )}
+          {/* flex-1 = 50% => button always at end or start */}
+          <div className="flex-1 flex justify-start">
+            {navigateToLastEntry && (
+              <Button
+                navigateTo={`/details/${navigateToLastEntry.id}`}
+                className="rotate-180 h-10 w-10 cursor-pointer rounded-full overflow-hidden"
+                imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
+                imgHoverSrc="/img/arrow.png"
+                imgAlt="arrow right"
+                imgClassName="h-10 w-10 object-contain hover:bg-pastelpink/80"
+              />
+            )}
+          </div>
+
+          <div className="flex-1 flex justify-end">
+            {navigateToNextEntry && (
+              <Button
+                navigateTo={`/details/${navigateToNextEntry.id}`}
+                className="h-10 w-10 cursor-pointer rounded-full overflow-hidden"
+                imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
+                imgHoverSrc="/img/arrow.png"
+                imgAlt="arrow right"
+                imgClassName="h-10 w-10 object-contain hover:bg-pastelpink/80"
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>
