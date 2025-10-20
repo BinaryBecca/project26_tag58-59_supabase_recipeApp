@@ -4,6 +4,7 @@ import supabase from "../../utils/supabase"
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
 import FormButton from "../../components/formButton/FormButton"
+import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
 
 export default function SignUp() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
@@ -44,69 +45,57 @@ export default function SignUp() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div
-        className={`border rounded-2xl py-5 px-10  ${
-          isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
-        }`}>
-        <h2
-          className={`text-center font-quicksand font-bold text-3xl px-5 ${
-            isDarkMode ? "text-gray-700" : "text-white/80"
-          }`}>
-          Erstelle einen Account
-        </h2>
+    <FormFieldWrapper title="Erstelle einen Account">
+      <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSignUp}>
+        <FormFieldInput
+          type="text"
+          name="firstname"
+          onChange={(e) => setFirstname(e.target.value)}
+          placeholder="Vorname"
+          required={true}
+        />
+        <FormFieldInput
+          type="text"
+          name="lastname"
+          onChange={(e) => setLastname(e.target.value)}
+          placeholder="Nachname"
+          required={true}
+        />
+        <FormFieldInput
+          type="text"
+          name="username"
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          required={true}
+        />
+        <FormFieldInput
+          type="email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="E-Mail"
+          required={true}
+        />
+        <FormFieldInput
+          type="current_password"
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="••••••••"
+          required={true}
+        />
 
-        <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSignUp}>
-          <FormFieldInput
-            type="text"
-            name="firstname"
-            onChange={(e) => setFirstname(e.target.value)}
-            placeholder="Vorname"
-            required={true}
-          />
-          <FormFieldInput
-            type="text"
-            name="lastname"
-            onChange={(e) => setLastname(e.target.value)}
-            placeholder="Nachname"
-            required={true}
-          />
-          <FormFieldInput
-            type="text"
-            name="username"
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            required={true}
-          />
-          <FormFieldInput
-            type="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-Mail"
-            required={true}
-          />
-          <FormFieldInput
-            type="current_password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            required={true}
-          />
+        <FormButton text="Anmelden" />
 
-          <FormButton text="Anmelden" />
-
-          <p className="text-center text-s text-gray-700">
-            Schon angemeldet?{" "}
-            <Link
-              to="/login"
-              className={`text-m ${
-                isDarkMode ? "text-pastelpink hover:text-pink-500" : "text-gray-400 hover:text-gray-50"
-              }`}>
-              Login
-            </Link>
-          </p>
-        </form>
-      </div>
-    </div>
+        <p className="text-center text-s text-gray-700">
+          Schon angemeldet?{" "}
+          <Link
+            to="/login"
+            className={`text-m ${
+              isDarkMode ? "text-pastelpink hover:text-pink-500" : "text-gray-400 hover:text-gray-50"
+            }`}>
+            Login
+          </Link>
+        </p>
+      </form>
+    </FormFieldWrapper>
   )
 }

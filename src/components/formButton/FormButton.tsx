@@ -12,7 +12,7 @@ export default function FormButton({ text, type = "submit" }: FormButtonProps) {
   return (
     <button
       type={type}
-      className={`p-2 mb-4 border border-white/80 rounded-4xl text-xl cursor-pointer ${
+      className={`p-2 mb-4 border border-white/80 rounded-4xl text-l cursor-pointer ${
         isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
       }`}>
       {text}

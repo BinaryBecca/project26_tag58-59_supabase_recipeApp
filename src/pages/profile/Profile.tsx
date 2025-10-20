@@ -6,6 +6,7 @@ import { darkModeContext, type DarkmodeProviderProps } from "../../components/da
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
 import type { IRecipe } from "../../interfaces/IRecipe"
+import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
 // import { useNavigate } from "react-router"
 
 interface ProfileProps {
@@ -107,35 +108,31 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen flex flex-col gap-5 items-center justify-center">
-      <div
-        className={`border rounded-2xl py-5 px-10  ${
-          isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
-        }`}>
-        <h2
-          className={`text-center font-quicksand font-bold text-3xl px-5 ${
-            isDarkMode ? "text-gray-700" : "text-white/80"
-          }`}>
-          Profil bearbeiten
-        </h2>
+      <FormFieldWrapper title="Profil bearbeiten">
         <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSave}>
           {!isEditing ? (
             <>
-              <div className="mb-10">
-                <p className="text-gray-700">
-                  Vorname: <span className="text-xl">{user?.firstname}</span>
-                </p>
-                <p className="text-gray-700">
-                  Nachname: <span className="text-xl">{user?.lastname}</span>
-                </p>
-                <p className="text-gray-700">
-                  Username: <span className="text-xl">{user?.username}</span>
-                </p>
-                <p className="text-gray-700">
-                  E-Mail: <span className="text-xl">{user?.email}</span>
-                </p>
-                <p className="text-gray-700">
-                  Passwort: <span className="text-xl">••••••••</span>
-                </p>
+              <div className="flex flex-col gap-4 text-gray-700 mb-10">
+                <div className="flex">
+                  <span className="w-25 font-bold">Vorname:</span>
+                  <span className="text-gray-600">{user?.firstname}</span>
+                </div>
+                <div className="flex">
+                  <span className="w-25 font-bold">Nachname:</span>
+                  <span className="text-gray-600">{user?.lastname}</span>
+                </div>
+                <div className="flex">
+                  <span className="w-25 font-bold">Nutzername:</span>
+                  <span className="text-gray-600">{user?.username}</span>
+                </div>
+                <div className="flex">
+                  <span className="w-25 font-bold">E-Mail:</span>
+                  <span className="text-gray-600">{user?.email}</span>
+                </div>
+                <div className="flex">
+                  <span className="w-25 font-bold">Passwort:</span>
+                  <span className="text-gray-600">••••••••</span>
+                </div>
               </div>
 
               <button
@@ -167,7 +164,7 @@ export default function Profile() {
                 placeholder="Neuer Nachname"
               />
 
-              <label className="text-gray-600 pl-2">Username</label>
+              <label className="text-gray-600 pl-2">Nutzername</label>
               <FormFieldInput
                 type="text"
                 name="username"
@@ -194,22 +191,21 @@ export default function Profile() {
                 placeholder="Neues Passwort"
               />
 
-              <FormButton text="Änderungen übernehmen" />
+              <div className=" flex mt-4 gap-3">
+                <FormButton text="Änderungen übernehmen" />
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="p-2 mb-4 border border-gray-500 rounded-4xl text-l cursor-pointer">
+                  Abbrechen
+                </button>
+              </div>
             </>
           )}
         </form>
-      </div>
+      </FormFieldWrapper>
 
-      <div
-        className={`border rounded-2xl py-5 px-10  ${
-          isDarkMode ? "bg-white/20 border-gray-700/80" : "bg-pastelpink/40 border-white/80"
-        }`}>
-        <h2
-          className={`text-center font-quicksand font-bold text-3xl px-5 mb-4 ${
-            isDarkMode ? "text-gray-700" : "text-white/80"
-          }`}>
-          Erstellte Rezepte
-        </h2>
+      <FormFieldWrapper title="Erstellte Rezepte">
         <ul className="flex flex-row flex-wrap gap-4">
           {userRecipes.map((recipe) => (
             <li key={recipe.id} className="border p-4 rounded-xl">
@@ -221,7 +217,7 @@ export default function Profile() {
             </li>
           ))}
         </ul>
-      </div>
+      </FormFieldWrapper>
     </div>
   )
 }
