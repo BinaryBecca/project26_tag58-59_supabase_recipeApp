@@ -9,6 +9,7 @@ import SignUp from "./pages/signUp/SignUp"
 import Profile from "./pages/profile/Profile"
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute"
 import Favorites from "./pages/favorites/Favorites"
+import UserRecipes from "./pages/userRecipes/UserRecipes"
 
 function App() {
   const router = createBrowserRouter(
@@ -36,6 +37,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="user_recipes" element={<UserRecipes />} />
         <Route path="details/:id" element={<Details />} />
       </Route>
     )

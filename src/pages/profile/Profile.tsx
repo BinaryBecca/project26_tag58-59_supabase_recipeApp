@@ -5,9 +5,10 @@ import supabase from "../../utils/supabase"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
 import FormFieldInput from "../../components/formFieldInput/FormFieldInput"
 import FormButton from "../../components/formButton/FormButton"
-import type { IRecipe } from "../../interfaces/IRecipe"
 import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
 import FormFieldLabel from "../../components/formFieldLabel/FormFieldLabel"
+import { Link } from "react-router"
+import CupcakeCard from "../../components/cupcakeCard/CupcakeCard"
 // import { useNavigate } from "react-router"
 
 interface ProfileProps {
@@ -27,7 +28,6 @@ export default function Profile() {
   const [newUsername, setNewUsername] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [newPassword, setNewPassword] = useState("")
-  const [userRecipes, setUserRecipes] = useState<IRecipe[]>([])
 
   const fetchData = async () => {
     const {
@@ -46,22 +46,6 @@ export default function Profile() {
 
   useEffect(() => {
     fetchData()
-  }, [])
-
-  //# fetchRecipes from user to edit
-  const fetchUserRecipes = async () => {
-    if (user) {
-      const { data, error } = await supabase.from("recipes").select("*").eq("user_id", user.id)
-      if (error) {
-        console.error("Fehler beim Fetchen der Rezepte", error)
-      } else {
-        setUserRecipes(data || [])
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchUserRecipes()
   }, [])
 
   async function handleSave() {
@@ -108,117 +92,112 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col sm:flex-row gap-5 items-center justify-center">
-      <FormFieldWrapper title="Profil bearbeiten">
-        <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSave}>
-          {!isEditing ? (
-            <>
-              <div className="flex flex-col gap-4 text-gray-700 mb-10 px-10">
-                <div className="flex">
-                  <span className="w-25 font-bold">Vorname:</span>
-                  <span className="text-gray-600">{user?.firstname}</span>
-                </div>
-                <div className="flex">
-                  <span className="w-25 font-bold">Nachname:</span>
-                  <span className="text-gray-600">{user?.lastname}</span>
-                </div>
-                <div className="flex">
-                  <span className="w-25 font-bold">Nutzername:</span>
-                  <span className="text-gray-600">{user?.username}</span>
-                </div>
-                <div className="flex">
-                  <span className="w-25 font-bold">E-Mail:</span>
-                  <span className="text-gray-600">{user?.email}</span>
-                </div>
-                <div className="flex">
-                  <span className="w-25 font-bold">Passwort:</span>
-                  <span className="text-gray-600">••••••••</span>
-                </div>
+    <FormFieldWrapper title="Profil bearbeiten">
+      <form className="flex flex-col align-items py-10 px-2" onSubmit={handleSave}>
+        {!isEditing ? (
+          <>
+            <div className="flex flex-col gap-4 text-gray-700 mb-10 px-10">
+              <div className="flex">
+                <span className="w-25 font-bold">Vorname:</span>
+                <span className="text-gray-600">{user?.firstname}</span>
               </div>
+              <div className="flex">
+                <span className="w-25 font-bold">Nachname:</span>
+                <span className="text-gray-600">{user?.lastname}</span>
+              </div>
+              <div className="flex">
+                <span className="w-25 font-bold">Nutzername:</span>
+                <span className="text-gray-600">{user?.username}</span>
+              </div>
+              <div className="flex">
+                <span className="w-25 font-bold">E-Mail:</span>
+                <span className="text-gray-600">{user?.email}</span>
+              </div>
+              <div className="flex">
+                <span className="w-25 font-bold">Passwort:</span>
+                <span className="text-gray-600">••••••••</span>
+              </div>
+            </div>
 
+            <button
+              type="button"
+              onClick={handleClick}
+              className={`p-2 mb-4 border border-white/80 rounded-4xl text-md sm:text-l cursor-pointer ${
+                isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
+              }`}>
+              Bearbeiten
+            </button>
+          </>
+        ) : (
+          <>
+            <FormFieldLabel text="Vorname" />
+            <FormFieldInput
+              type="text"
+              name="firstname"
+              value={newFirstname}
+              onChange={(e) => setNewFirstname(e.target.value)}
+              placeholder="Neuer Vorname"
+            />
+
+            <FormFieldLabel text="Nachname" />
+            <FormFieldInput
+              type="text"
+              name="lastname"
+              value={newLastname}
+              onChange={(e) => setNewLastname(e.target.value)}
+              placeholder="Neuer Nachname"
+            />
+
+            <FormFieldLabel text="Nutzername" />
+            <FormFieldInput
+              type="text"
+              name="username"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+              placeholder="Neuer Username"
+            />
+
+            <FormFieldLabel text="E-Mail" />
+            <FormFieldInput
+              type="email"
+              name="email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+              placeholder="Neue E-Mail"
+            />
+
+            <FormFieldLabel text="Passwort" />
+            <FormFieldInput
+              type="password"
+              name="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Neues Passwort"
+            />
+
+            <div className=" flex mt-4 gap-3">
+              <FormButton text="Profil ändern" />
               <button
                 type="button"
-                onClick={handleClick}
-                className={`p-2 mb-4 border border-white/80 rounded-4xl text-md sm:text-l cursor-pointer ${
-                  isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
-                }`}>
-                Bearbeiten
+                onClick={() => setIsEditing(false)}
+                className="p-2 border border-gray-500 rounded-4xl text-md sm:text-l cursor-pointer">
+                Abbrechen
               </button>
-            </>
-          ) : (
-            <>
-              <FormFieldLabel text="Vorname" />
-              <FormFieldInput
-                type="text"
-                name="firstname"
-                value={newFirstname}
-                onChange={(e) => setNewFirstname(e.target.value)}
-                placeholder="Neuer Vorname"
-              />
-
-              <FormFieldLabel text="Nachname" />
-              <FormFieldInput
-                type="text"
-                name="lastname"
-                value={newLastname}
-                onChange={(e) => setNewLastname(e.target.value)}
-                placeholder="Neuer Nachname"
-              />
-
-              <FormFieldLabel text="Nutzername" />
-              <FormFieldInput
-                type="text"
-                name="username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                placeholder="Neuer Username"
-              />
-
-              <FormFieldLabel text="E-Mail" />
-              <FormFieldInput
-                type="email"
-                name="email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
-                placeholder="Neue E-Mail"
-              />
-
-              <FormFieldLabel text="Passwort" />
-              <FormFieldInput
-                type="password"
-                name="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Neues Passwort"
-              />
-
-              <div className=" flex mt-4 gap-3">
-                <FormButton text="Profil ändern" />
-                <button
-                  type="button"
-                  onClick={() => setIsEditing(false)}
-                  className="p-2 mb-4 border border-gray-500 rounded-4xl text-md sm:text-l cursor-pointer">
-                  Abbrechen
-                </button>
-              </div>
-            </>
-          )}
-        </form>
-      </FormFieldWrapper>
-
-      <FormFieldWrapper title="Erstellte Rezepte">
-        <ul className="flex flex-row flex-wrap gap-4">
-          {userRecipes.map((recipe) => (
-            <li key={recipe.id} className="border p-4 rounded-xl">
-              <img className="h-50" src={recipe.image_url} alt={recipe.name} />
-              <h4 className="text-xl font-semibold">{recipe.name}</h4>
-              <p>{recipe.description}</p>
-              <p>{recipe.servings}</p>
-              <p>{recipe.instructions}</p>
-            </li>
-          ))}
-        </ul>
-      </FormFieldWrapper>
-    </div>
+            </div>
+          </>
+        )}
+      </form>
+      <h2
+        className={`text-center font-quicksand font-bold text-3xl pb-6 ${
+          isDarkMode ? "text-gray-700" : "text-white/80"
+        }`}>
+        Rezepte bearbeiten
+      </h2>
+      <Link to="/user_recipes" className="flex flex-col mb-4 items-center">
+        {" "}
+        <img className="h-50 object-contain" src={isDarkMode ? "/img/baker_light.png" : "/img/baker_dark.png"} alt="" />
+      </Link>
+      <p className="text-gray-500 text-center text-xs">Klicke auf den Bäcker</p>
+    </FormFieldWrapper>
   )
 }
