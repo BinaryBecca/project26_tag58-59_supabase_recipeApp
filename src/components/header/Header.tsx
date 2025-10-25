@@ -9,11 +9,12 @@ export default function Header() {
 
   // prüfen, ob auf Detailseite (Achtung path variiert!)
   const detailPage = location.pathname.startsWith("/details")
+  const editingRecipesPage = location.pathname.startsWith("/editing_recipes")
   // Routen, bei denen kein hero-img angzeigt werden soll
   const pagesWithoutHeroImg = ["/signup", "/login", "/profile", "/create", "/user_recipes"]
 
   // falls detailpage/pagesWithoutHeroImg => hidingHeroImg true
-  const hidingHeroImg = detailPage || pagesWithoutHeroImg.includes(location.pathname)
+  const hidingHeroImg = detailPage || editingRecipesPage || pagesWithoutHeroImg.includes(location.pathname)
 
   return (
     <header className={`font-quicksand text-xl ${isDarkMode ? "bg-pastelblue/20" : "bg-pastelblue"}`}>

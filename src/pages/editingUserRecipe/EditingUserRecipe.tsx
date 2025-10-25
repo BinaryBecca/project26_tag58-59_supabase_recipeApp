@@ -1,38 +1,25 @@
 import { useContext } from "react"
-import { mainContext, type mainContextProps } from "../../context/MainProvider"
-import type { IRecipe } from "../../interfaces/IRecipe"
 import { useParams } from "react-router"
-import type { IIngredient } from "../../interfaces/IIngredient"
+import type { IRecipe } from "../../interfaces/IRecipe"
+import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
+import type { IIngredient } from "../../interfaces/IIngredient"
 import type { ICategory } from "../../interfaces/ICategory"
-import Button from "../../components/button/Button"
 
-export default function Details() {
+export default function EditingUserRecipes() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const { id } = useParams()
-  // console.log("id", id)
-
   const { recipes, ingredients, categories } = useContext(mainContext) as mainContextProps
 
   const showingRecipe = recipes.find((recipe: IRecipe) => {
-    // console.log(`${recipe.id}`, `${id}`, recipe.id === id)
-    // console.log(recipe.id)
     return recipe.id === id
   })
 
-  // # back-/forwards button function with findIndex
-  const currentIndex = recipes.findIndex((recipe: IRecipe) => recipe.id === id)
-  console.log("currentIndex", currentIndex)
-  const navigateToLastEntry = recipes[currentIndex - 1]
-  const navigateToNextEntry = recipes[currentIndex + 1]
-
   const showingIngredient = ingredients.filter((ingredient: IIngredient) => {
-    // console.log(`${ingredient.recipe_id}`, `${id}`, ingredient.recipe_id === id)
     return ingredient.recipe_id === id
   })
 
   const showingCategory = categories.filter((category: ICategory) => {
-    // console.log(`${category.id}`, `${showingRecipe?.category_id}`, category.id === showingRecipe?.category_id)
     return category.id === showingRecipe?.category_id
   })
 
@@ -108,35 +95,6 @@ export default function Details() {
           {showingCategory.map((category) => {
             return <p key={category.id}>{category.name}</p>
           })}
-        </div>
-
-        <div className="flex items-center justify-between">
-          {/* flex-1 = 50% => button always at end or start */}
-          <div className="flex-1 flex justify-start">
-            {navigateToLastEntry && (
-              <Button
-                navigateTo={`/details/${navigateToLastEntry.id}`}
-                className="rotate-180 h-10 w-10 cursor-pointer rounded-full overflow-hidden"
-                imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
-                imgHoverSrc="/img/arrow.png"
-                imgAlt="arrow right"
-                imgClassName="h-10 w-10 object-contain hover:bg-pastelpink/80"
-              />
-            )}
-          </div>
-
-          <div className="flex-1 flex justify-end">
-            {navigateToNextEntry && (
-              <Button
-                navigateTo={`/details/${navigateToNextEntry.id}`}
-                className="h-10 w-10 cursor-pointer rounded-full overflow-hidden"
-                imgSrc={isDarkMode ? "/img/arrow.png" : "/img/arrow-dark.png"}
-                imgHoverSrc="/img/arrow.png"
-                imgAlt="arrow right"
-                imgClassName="h-10 w-10 object-contain hover:bg-pastelpink/80"
-              />
-            )}
-          </div>
         </div>
       </div>
     </section>

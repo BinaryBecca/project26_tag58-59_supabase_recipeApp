@@ -6,7 +6,6 @@ import supabase from "../../utils/supabase"
 import type { IIngredient } from "../../interfaces/IIngredient"
 import UserRecipeList from "../../components/userRecipeList/UserRecipeList"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
-import FormFieldWrapper from "../../components/formFieldWrapper/FormFieldWrapper"
 
 interface UserRecipesProps {
   user: IUser
@@ -68,7 +67,7 @@ export default function UserRecipes() {
         Erstellte Rezepte
       </h2>
       <UserRecipeList />
-
+      {/* 
       {isEditing && selectedRecipe && (
         <FormFieldWrapper title="Rezept bearbeiten">
           <form>
@@ -85,7 +84,7 @@ export default function UserRecipes() {
             </ul>
           </form>
         </FormFieldWrapper>
-      )}
+      )} */}
     </>
   )
 }

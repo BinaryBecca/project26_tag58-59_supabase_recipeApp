@@ -35,7 +35,7 @@ export default function UserRecipeCard({ recipe }: UserRecipeCardProps) {
           <h2 className="font-bold text-2xl z-10">{recipe.name}</h2>
           <p className="text-xl text-center z-10">{recipe.description}</p>
           <Link
-            to="/editing_recipes"
+            to={`/editing_recipes/${recipe.id}`}
             className={`z-20 p-2 mb-4 border border-white/80 rounded-4xl text-md sm:text-l cursor-pointer ${
               isDarkMode ? "bg-pastelpink text-black" : "bg-white text-pastelpink"
             }`}>
