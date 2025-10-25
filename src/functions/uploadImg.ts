@@ -26,6 +26,7 @@ export async function uploadImg(file: File | null) {
 
   // timestamp = immer unique; keine Dopplungen/Probleme mit Supabase
   const timestamp = Date.now()
+  // Sonderzeichen ersetzen
   const safeName = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`
   const filePath = `${userId}/${safeName}`
 

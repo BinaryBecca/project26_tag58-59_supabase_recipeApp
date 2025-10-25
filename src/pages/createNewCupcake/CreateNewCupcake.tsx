@@ -97,10 +97,10 @@ export default function CreateNewCupcake() {
       // ingredients-array > Zutaten speichern
       await supabase.from("ingredients").insert(
         ingredients.map((ing) => ({
-          ingredientName: ing.name,
+          name: ing.name,
           quantity: ing.quantity,
           unit: ing.unit,
-          additionalInfo: ing.additionalInfo,
+          additional_info: ing.additionalInfo,
           recipe_id: recipeId,
         }))
       )
