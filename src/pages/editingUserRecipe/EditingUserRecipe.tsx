@@ -1,15 +1,64 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import type { IRecipe } from "../../interfaces/IRecipe"
 import { mainContext, type mainContextProps } from "../../context/MainProvider"
 import { darkModeContext, type DarkmodeProviderProps } from "../../components/darkModeContext/DarkModeProvider"
 import type { IIngredient } from "../../interfaces/IIngredient"
 import type { ICategory } from "../../interfaces/ICategory"
+import type { IUser } from "../../interfaces/IUser"
+import supabase from "../../utils/supabase"
+
+interface EditingUserRecipesProps {
+  user: IUser
+  // setUser: React.Dispatch<React.SetStateAction<IUser | null>>
+}
 
 export default function EditingUserRecipes() {
   const { isDarkMode } = useContext(darkModeContext) as DarkmodeProviderProps
   const { id } = useParams()
   const { recipes, ingredients, categories } = useContext(mainContext) as mainContextProps
+  const { user } = useContext(mainContext) as EditingUserRecipesProps
+
+  const [userRecipes, setUserRecipes] = useState<IRecipe[]>([])
+  const [userIngredients, setUserIngredients] = useState<IIngredient[]>([])
+
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null)
+
+  //# fetch recipes from user to edit
+  const fetchUserRecipes = async () => {
+    if (user) {
+      const { data, error } = await supabase.from("recipes").select("*").eq("user_id", user.id)
+      if (error) {
+        console.error("Fehler beim Fetchen der Rezepte", error)
+      } else {
+        setUserRecipes(data || [])
+      }
+    }
+  }
+
+  //# fetch ingredients from user to edit
+  const fetchUserIngredients = async () => {
+    if (user) {
+      const { data, error } = await supabase.from("ingredients").select("*").eq("user_id", user.id)
+      if (error) {
+        console.error("Fehler beim Fetchen der Zutaten", error)
+      } else {
+        setUserIngredients(data || [])
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchUserRecipes()
+    fetchUserIngredients()
+  }, [])
+
+  // #edit recipe user
+  const handleEditing = (recipe: IRecipe) => {
+    setSelectedRecipe(recipe)
+    setIsEditing(true)
+  }
 
   const showingRecipe = recipes.find((recipe: IRecipe) => {
     return recipe.id === id
@@ -40,7 +89,7 @@ export default function EditingUserRecipes() {
       <div
         className="relative bg-cover bg-center w-full px-20 py-30"
         style={{ backgroundImage: `url(${showingRecipe.image_url || "/img/placeholder-img.png"})` }}>
-        <p className="relative text-white/80 text-4xl sm:text-5xl z-20 text-center">{showingRecipe.name}</p>
+        {/* <p className="relative text-white/80 text-4xl sm:text-5xl z-20 text-center">{showingRecipe.name}</p> */}
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
