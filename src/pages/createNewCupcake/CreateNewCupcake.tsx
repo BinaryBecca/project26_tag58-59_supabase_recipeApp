@@ -39,8 +39,6 @@ export default function CreateNewCupcake() {
   // const [unit, setUnit] = useState<string>("")
   // const [additionalInfo, setAdditionalInfo] = useState<string>("")
 
-  const [formError, setFormError] = useState<string | null>(null)
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -53,7 +51,7 @@ export default function CreateNewCupcake() {
         .single()
 
       if (categoryError || !categoryData) {
-        setFormError("Kategorie nicht gefunden")
+        console.error("Kategorie nicht gefunden")
         return
       }
 
@@ -65,7 +63,7 @@ export default function CreateNewCupcake() {
       console.log("URL:", uploadedImg)
 
       if (!uploadedImg) {
-        setFormError("Bild konnte nicht hochgeladen werden")
+        console.error("Bild konnte nicht hochgeladen werden")
         return
       }
 
@@ -88,7 +86,7 @@ export default function CreateNewCupcake() {
         .single()
 
       if (recipeError || !recipeData) {
-        setFormError("Fehler beim Speichern des Rezepts")
+        console.error("Fehler beim Speichern des Rezepts")
         return
       }
 
@@ -104,11 +102,9 @@ export default function CreateNewCupcake() {
           recipe_id: recipeId,
         }))
       )
-
-      setFormError(null)
       navigate("/")
     } catch (err) {
-      setFormError("Unerwarteter Fehler")
+      console.error("Unerwarteter Fehler")
       console.error(err)
     }
   }
@@ -125,7 +121,6 @@ export default function CreateNewCupcake() {
     setInstructions("")
     setImageUrl(null)
     setIngredients([])
-    setFormError(null)
   }
 
   return (
