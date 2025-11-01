@@ -74,7 +74,7 @@ export default function EditingUserRecipes() {
   //#saving changes
   const handleSave = async () => {
     if (!selectedRecipe || !selectedIngredients) return
-    const { data: recipeData, error: recipeError } = await supabase
+    const { error: recipeError } = await supabase
       .from("recipes")
       .update({
         name: selectedRecipe.name,
@@ -87,8 +87,13 @@ export default function EditingUserRecipes() {
       })
       .eq("id", selectedRecipe.id)
 
+    // Unterschied schon existierende/neue Zutaten!
+    const existingIngredients = selectedIngredients.filter((ing) => ing.id)
+    const newIngredients = selectedIngredients.filter((ing) => !ing.id)
+
+    // nur existierende Zutatenn updaten
     const ingredientUpdates = await Promise.all(
-      selectedIngredients.map((ingredient) =>
+      existingIngredients.map((ingredient) =>
         supabase
           .from("ingredients")
           .update({
@@ -101,10 +106,24 @@ export default function EditingUserRecipes() {
       )
     )
 
-    const ingredientError = ingredientUpdates.some((res) => res.error)
+    let insertError = null
+    if (newIngredients.length > 0) {
+      const { error } = await supabase.from("ingredients").insert(
+        newIngredients.map((ing) => ({
+          recipe_id: selectedRecipe.id,
+          name: ing.name,
+          quantity: ing.quantity,
+          unit: ing.unit,
+          additional_info: ing.additional_info,
+        }))
+      )
+      insertError = error
+    }
+
+    const ingredientError = ingredientUpdates.some((res) => res.error) || insertError
 
     if (recipeError || ingredientError) {
-      console.error("Fehler beim Speichern des Rezeptes", recipeError)
+      console.error("Fehler beim Speichern des Rezeptes", recipeError, ingredientError)
     } else {
       console.log("Rezept und Zutaten erfolgreich gespeichert")
       setIsEditing(false)
@@ -112,6 +131,7 @@ export default function EditingUserRecipes() {
       fetchUserIngredients()
     }
   }
+
   //# changes with ingredients
   const handleIngredientChange = (index: number, field: keyof IIngredient, value: string | number) => {
     const updatedIngredients = [...selectedIngredients]
@@ -250,7 +270,7 @@ export default function EditingUserRecipes() {
             </div>
           </div>
         </>
-      ) : (
+      ) : selectedRecipe ? (
         <>
           <div
             className="relative bg-cover bg-center w-full px-20 py-30"
@@ -289,8 +309,8 @@ export default function EditingUserRecipes() {
             </div>
 
             <select
-              value={selectedRecipe.category_name}
-              onChange={(e) => setSelectedRecipe({ ...selectedRecipe, category_name: e.target.value })}
+              value={selectedRecipe.category_id}
+              onChange={(e) => setSelectedRecipe({ ...selectedRecipe, category_id: e.target.value })}
               className="w-full text-xl sm:text-2xl bg-transparent border border-black p-2 mb-4">
               <option value="">Kategorie wählen</option>
               {categories.map((cat) => (
@@ -329,7 +349,7 @@ export default function EditingUserRecipes() {
                   onClick={() =>
                     setSelectedIngredients([
                       ...selectedIngredients,
-                      { name: "", quantity: 0, unit: "", additional_info: "" },
+                      { name: "", quantity: 0, unit: "", additional_info: "", recipes: [] },
                     ])
                   }>
                   + Zutat hinzufügen
@@ -361,7 +381,7 @@ export default function EditingUserRecipes() {
             </div>
           </div>
         </>
-      )}
+      ) : null}
     </section>
   )
 }
