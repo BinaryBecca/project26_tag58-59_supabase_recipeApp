@@ -56,7 +56,7 @@ export default function UserRecipeCard({ recipe }: UserRecipeCardProps) {
 
         {/* adding clip-path & box-shadow in css  */}
         <div className="relative flex flex-col justify-between items-center py-10 px-4 border border-gray-300 bg-white">
-          {/* pointer-events-none = click/hover-effects are not effected by overlay! */}
+          {/* pointer-events-none = click/hover-effects are not effected by overlay */}
           <div
             className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${
               isDarkMode ? "bg-pastelyellow/5" : "bg-pastelyellow"

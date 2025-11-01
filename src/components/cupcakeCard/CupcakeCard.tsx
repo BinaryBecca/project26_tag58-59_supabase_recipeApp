@@ -44,6 +44,7 @@ export default function CupcakeCard({ recipe }: CupcakeCardProps) {
         <div className="topping-top" />
       </div>
 
+      {/* <img className="absolute z-40 h-26 bottom-92 left-29" src="/img/cherry_light.png" alt="cherry" /> */}
       {/* <div className="cherry"></div> */}
     </div>
   )
